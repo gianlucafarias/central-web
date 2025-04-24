@@ -64,6 +64,7 @@ const NewsSection = () => {
               alt="Publicidad" 
               width={600} 
               height={100} 
+              unoptimized
               className="w-full h-auto object-contain max-h-[100px]"
             />
           </div>

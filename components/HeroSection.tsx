@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function HeroSection() {
   const [wordIndex, setWordIndex] = useState(0);
@@ -9,6 +9,9 @@ export default function HeroSection() {
   const typingSpeed = 150;
   const deletingSpeed = 75;
   const pauseDuration = 10000;
+
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -43,14 +46,43 @@ export default function HeroSection() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text, isDeleting, wordIndex]);
 
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    const handleCanPlayThrough = () => {
+      setIsVideoLoading(false);
+    };
+    const handleError = () => {
+      console.error("Error loading video.");
+      setIsVideoLoading(false);
+    };
+
+    if (videoElement.readyState >= 4) {
+        handleCanPlayThrough();
+    } else {
+        videoElement.addEventListener('canplaythrough', handleCanPlayThrough);
+        videoElement.addEventListener('error', handleError);
+    }
+
+    return () => {
+      videoElement.removeEventListener('canplaythrough', handleCanPlayThrough);
+      videoElement.removeEventListener('error', handleError);
+    };
+  }, []);
+
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      {/* Video de fondo */}
-      <div className="absolute inset-0 z-0">
-        {/* Capa oscura sobre el video */}
+    <div className="relative w-full h-screen overflow-hidden bg-black">
+      {isVideoLoading && (
+        <div className="absolute inset-0 flex items-center justify-center z-30">
+          <div className="loader"></div>
+        </div>
+      )}
+
+      <div className={`absolute inset-0 z-0 transition-opacity duration-500 ${isVideoLoading ? 'opacity-0' : 'opacity-100'}`}>
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-yellow-500/60 z-10 "></div>
-        {/* Elemento de Video */}
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
@@ -62,8 +94,7 @@ export default function HeroSection() {
         </video>
       </div>
 
-      {/* Contenido principal */}
-      <div className="relative z-20 h-full flex flex-col justify-center">
+      <div className={`relative z-20 h-full flex flex-col justify-center transition-opacity duration-500 ${isVideoLoading ? 'opacity-0' : 'opacity-100'}`}>
         <div className="container px-6 max-w-screen-xl mx-auto">
           <div className="">
             <div className="text-center mx-auto max-w-3xl">
@@ -101,24 +132,6 @@ export default function HeroSection() {
           
         </div>
         
-        {/* Banda amarilla con textos 
-        <div className="absolute bottom-0 left-0 w-full bg-[#ffdc00] py-3">
-          <div className="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
-            <div className="flex items-center gap-8 mb-2 sm:mb-0">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-black rounded-full"></div>
-                <span className="text-black font-bold text-sm">CCAO</span>
-              </div>
-              <div className="hidden md:flex items-center gap-2">
-                <div className="w-2 h-2 bg-black rounded-full"></div>
-                <span className="text-black font-bold text-sm">DESDE 1967</span>
-              </div>
-            </div>
-            <span className="text-black font-bold text-sm uppercase">Inscripciones Abiertas</span>
-          </div>
-        </div>
-        */}
-        {/* Scroll indicator */}
         <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 hidden md:flex flex-col items-center animate-bounce">
           <span className="text-white text-xs mb-2">Desplaza para ver más</span>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
