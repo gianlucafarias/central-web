@@ -8,7 +8,6 @@ import { Card, CardContent } from '../components/ui/card';
 // import { Calendar } from '../components/ui/calendar';
 // Reimportar Tabs
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 

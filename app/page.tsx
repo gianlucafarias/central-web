@@ -1,4 +1,3 @@
-import Image from "next/image";
 import HeroSection from "../components/HeroSection";
 import Sponsors from "../components/Sponsors";
 import FiestaDelZapallo from "../components/FiestaDelZapallo";

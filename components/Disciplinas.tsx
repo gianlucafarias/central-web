@@ -4,7 +4,6 @@ import {
   Dribbble,   // Básquet (alternativa)
   Volleyball, 
   Waves,      // Natación (alternativa)
-  Weight,     // Placeholder Genérico
   Snowflake,  // Patín (alternativa Snowflake)
   Disc3       // Pádel
 } from 'lucide-react';

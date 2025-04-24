@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Oswald, Roboto } from "next/font/google";
+import { Geist, Oswald } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
