@@ -96,7 +96,7 @@ export default function Navbar() {
                 </Link>
                 {/* Dropdown Menu */} 
                 {item.subItems && hoveredItem === item.name && (
-                  <div className="absolute left-0 top-full mt-3 w-48 bg-black/90 backdrop-blur-sm rounded-md shadow-lg py-2 z-50">
+                  <div className="absolute left-0 top-full mt-3 w-48 bg-black/90 rounded-md shadow-lg py-2 z-50">
                     {item.subItems.map((subItem) => (
                       <Link 
                         key={subItem.name} 
