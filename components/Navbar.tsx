@@ -3,36 +3,38 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter, usePathname } from 'next/navigation';
 
 // Define navigation structure
 const navItems = [
   { name: "Inicio", href: "/" },
   {
     name: "EL Club",
-    href: "/el-club",
     subItems: [
       { name: "Historia", href: "/el-club/historia" },
       { name: "Comisión Directiva", href: "/el-club/comision" },
       { name: "Instalaciones", href: "/el-club/instalaciones" },
       { name: "Estatuto", href: "/el-club/estatuto" },
-      { name: "Fiesta Nacional del Zapallo", href: "/el-club/estatuto" },
-      { name: "Binguito", href: "/el-club/estatuto" },
+      { name: "Binguito", href: "/el-club/binguito" },
 
     ],
   },
   {
     name: "Disciplinas",
-    href: "/disciplinas", // Optional: Main disciplines overview page
     subItems: [
       { name: "Fútbol", href: "/disciplinas/futbol" },
-      { name: "Basquet Masculino", href: "/disciplinas/baloncesto" },
-      { name: "Basquet Inferiores", href: "/disciplinas/baloncesto" },
-      { name: "Voley Masculino", href: "/disciplinas/voleibol" },
-      { name: "Voley Femenino", href: "/disciplinas/natacion" },
-      { name: "Patín", href: "/disciplinas/gimnasia" },
-      { name: "Padel", href: "/disciplinas/gimnasia" },
+      { name: "Basquet", href: "/disciplinas/basquet" },
+      { name: "Voley", href: "/disciplinas/voley" },
+      { name: "Patín", href: "/disciplinas/patin" },
+      { name: "Natación", href: "/disciplinas/natacion" },
+      { name: "Padel", href: "/disciplinas/padel" },
+      { name: "Inicación deportiva", href: "/disciplinas/inicacion-deportiva" },
 
     ],
+  },
+  {
+    name: "Fiesta Nacional del Zapallo",
+    href: "/fiestanacionaldelzapallo",
   },
   { name: "Contacto", href: "#contacto" }, // Assuming contact is a section on the homepage
 ];
@@ -41,6 +43,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null); // State for hover
+  const pathname = usePathname(); // Get current pathname
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,8 +62,9 @@ export default function Navbar() {
 
   return (
     <nav 
-      className={`fixed left-0 right-0 z-50 transition-colors duration-300 ease-in-out bg-black/80 backdrop-blur-sm ${ 
-        !isScrolled ? 'md:bg-transparent md:backdrop-blur-none' : '' // Only make desktop transparent when not scrolled
+      className={`fixed left-0 right-0 z-50 transition-colors duration-300 ease-in-out bg-club-black backdrop-blur-sm ${ 
+        // Only make desktop transparent on homepage AND when not scrolled
+        pathname === '/' && !isScrolled ? 'md:bg-transparent md:backdrop-blur-none' : '' 
       }`}
     >
       <div className="max-w-screen-xl mx-auto px-3 py-3 flex justify-center md:justify-between items-center relative">
@@ -84,40 +88,53 @@ export default function Navbar() {
         <div className="hidden md:flex items-center space-x-6"> 
           {/* Navigation Links - Desktop */} 
           <div className="flex items-center space-x-6 text-white text-sm uppercase">
-            {navItems.map((item) => (
-              <div 
-                key={item.name}
-                className="relative" 
-                onMouseEnter={() => setHoveredItem(item.name)} 
-                onMouseLeave={() => setHoveredItem(null)}
-              >
-                <Link href={item.href || '#'} className="hover:text-[#ffdc00] transition-colors font-mono py-4">
-                  {item.name}
-                </Link>
-                {/* Dropdown Menu */} 
-                {item.subItems && hoveredItem === item.name && (
-                  <div className="absolute left-0 top-full mt-3 w-48 bg-black/90 rounded-md shadow-lg py-2 z-50">
-                    {item.subItems.map((subItem) => (
-                      <Link 
-                        key={subItem.name} 
-                        href={subItem.href} 
-                        className="block px-4 py-2 text-sm text-white hover:bg-gray-700/50 hover:text-[#ffdc00] transition-colors font-mono"
-                        onClick={() => setHoveredItem(null)} // Close menu on click
-                      >
-                        {subItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+            {navItems.map((item) => {
+              // Determine if the link is active
+              const isActive = item.href
+                ? item.href === '/'
+                  ? pathname === '/'
+                  : pathname.startsWith(item.href)
+                : false;
+
+              return (
+                <div 
+                  key={item.name}
+                  className="relative" 
+                  onMouseEnter={() => setHoveredItem(item.name)} 
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  <Link 
+                    href={item.href || '#'} 
+                    // Apply active style conditionally
+                    className={`font-mono py-4 transition-colors ${isActive ? 'text-[#ffdc00]' : 'text-white hover:text-[#ffdc00]'}`}
+                  >
+                    {item.name}
+                  </Link>
+                  {/* Dropdown Menu */} 
+                  {item.subItems && hoveredItem === item.name && (
+                    <div className="absolute left-0 top-full mt-3 w-48 bg-black/90 rounded-md shadow-lg py-2 z-50">
+                      {item.subItems.map((subItem) => (
+                        <Link 
+                          key={subItem.name} 
+                          href={subItem.href} 
+                          className="block px-4 py-2 text-sm text-white hover:bg-gray-700/50 hover:text-[#ffdc00] transition-colors font-mono"
+                          onClick={() => setHoveredItem(null)} // Close menu on click
+                        >
+                          {subItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
           
           {/* Action Buttons - Desktop */} 
           <div className="flex items-center space-x-4">
-            <button className="bg-[#ffdc00] text-black font-semibold py-2 px-6 rounded-full hover:bg-yellow-500 transition-colors text-sm cursor-pointer font-mono">
-              ASOCIATE AHORA
-            </button>
+            <Link href="/register" className="bg-[#ffdc00] text-black font-semibold py-2 px-6 rounded-full hover:bg-yellow-500 transition-colors text-sm cursor-pointer font-mono">
+              REGISTRARME
+            </Link>
             <Link href="/login" className="bg-white text-black font-semibold py-2 px-6 rounded-full hover:bg-gray-200 transition-colors text-sm cursor-pointer font-mono">
               INGRESAR
             </Link>
@@ -140,11 +157,25 @@ export default function Navbar() {
         <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 py-4 px-6">
           <div className="flex flex-col space-y-3 text-sm uppercase">
             {/* TODO: Add mobile submenu logic */} 
-            {navItems.map((item) => (
-              <Link key={item.name} href={item.href || '#'} className="text-white hover:text-[#ffdc00] py-2 font-mono" onClick={() => setIsMenuOpen(false)}>
-                {item.name}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              // Determine if the link is active
+              const isActive = item.href
+                ? item.href === '/'
+                  ? pathname === '/'
+                  : pathname.startsWith(item.href)
+                : false;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href || '#'}
+                  // Apply active style conditionally
+                  className={`py-2 font-mono transition-colors ${isActive ? 'text-[#ffdc00]' : 'text-white hover:text-[#ffdc00]'}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
             <div className="pt-2 flex flex-col space-y-2">
               <button className="w-full bg-[#ffdc00] text-black font-semibold py-2 px-4 rounded-full hover:bg-yellow-500 transition-colors text-sm font-mono">
                 ASOCIATE

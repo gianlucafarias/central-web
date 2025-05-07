@@ -6,6 +6,12 @@ import Footer from "../components/Footer";
 import SociosSection from "../components/SociosSection";
 import NewsSection from "../components/NewsSection";
 import Disciplinas from "../components/Disciplinas";
+import { Metadata } from "next";
+import ToTopButton from "@/components/ToTopButton";
+
+export const metadata: Metadata = {
+	title: 'Inicio | CCAO',
+  };
 
 export default function Home() {
   return (
@@ -19,6 +25,7 @@ export default function Home() {
 
       <SociosSection />
       <Footer />
+      <ToTopButton />
     </main>
   );
 }

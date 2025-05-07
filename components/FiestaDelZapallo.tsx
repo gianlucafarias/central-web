@@ -1,10 +1,16 @@
 'use client'
 
 import React from 'react'
-
-const imageUrl = '/_MGL2626e.jpg' 
+import { useRouter } from 'next/navigation';
+const imageUrl = '/herofnz.jpg' 
 
 export default function FiestaDelZapallo() {
+	const router = useRouter();
+
+	const handleVisitandoClick = () => {
+		router.push('/fiestanacionaldelzapallo');
+	};
+
 	return (
 		<section
 			className="relative bg-cover bg-center bg-no-repeat bg-fixed py-40" // Añadido bg-fixed para parallax
@@ -18,9 +24,8 @@ export default function FiestaDelZapallo() {
 					Fiesta Nacional del Zapallo
 				</h2>
 				<p className="text-lg md:text-xl mb-8">
-					Celebrando nuestra tradición y cultura en Ceres.
-				</p>
-				<button className="bg-[#ffdc00] text-black font-semibold py-3 px-8 rounded-full hover:bg-yellow-500 transition-colors font-mono">
+				Una fiesta de historia, presente y futuro.				</p>
+				<button className="cursor-pointer bg-[#ffdc00] text-black font-semibold py-3 px-8 rounded-full hover:bg-yellow-500 transition-colors font-mono" onClick={handleVisitandoClick}>
 					CONOCÉ MÁS
 				</button>
 			</div>

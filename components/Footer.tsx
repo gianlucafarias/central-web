@@ -48,16 +48,16 @@ const Footer = () => {
                 <a href="#inicio" className="text-white/80 hover:text-white transition-colors">Inicio</a>
               </li>
               <li>
-                <a href="#noticias" className="text-white/80 hover:text-white transition-colors">Noticias</a>
+                <a href="/el-club" className="text-white/80 hover:text-white transition-colors">El Club</a>
               </li>
               <li>
-                <a href="#calendario" className="text-white/80 hover:text-white transition-colors">Calendario</a>
+                <a href="/el-club/comision-directiva" className="text-white/80 hover:text-white transition-colors">Comisión Directiva</a>
               </li>
               <li>
-                <a href="#patrocinadores" className="text-white/80 hover:text-white transition-colors">Patrocinadores</a>
+                <a href="/el-club/instalaciones" className="text-white/80 hover:text-white transition-colors">Instalaciones</a>
               </li>
               <li>
-                <a href="#haztesocio" className="text-white/80 hover:text-white transition-colors">Hazte Socio</a>
+                <a href="/register" className="text-white/80 hover:text-white transition-colors">Hacete Socio</a>
               </li>
             </ul>
           </div>
@@ -66,19 +66,22 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-4">Disciplinas</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-white/80 hover:text-white transition-colors">Fútbol</a>
+                <a href="/disciplinas/futbol" className="text-white/80 hover:text-white transition-colors">Fútbol</a>
               </li>
               <li>
-                <a href="#" className="text-white/80 hover:text-white transition-colors">Baloncesto</a>
+                <a href="/disciplinas/basquet" className="text-white/80 hover:text-white transition-colors">Basquet</a>
               </li>
               <li>
-                <a href="#" className="text-white/80 hover:text-white transition-colors">Voleibol</a>
+                <a href="/disciplinas/voley" className="text-white/80 hover:text-white transition-colors">Voley</a>
               </li>
               <li>
-                <a href="#" className="text-white/80 hover:text-white transition-colors">Natación</a>
+                <a href="/disciplinas/natacion" className="text-white/80 hover:text-white transition-colors">Natación</a>
               </li>
               <li>
-                <a href="#" className="text-white/80 hover:text-white transition-colors">Atletismo</a>
+                <a href="/disciplinas/patin" className="text-white/80 hover:text-white transition-colors">Patin</a>
+              </li>
+              <li>
+                <a href="/disciplinas/padel" className="text-white/80 hover:text-white transition-colors">Padel</a>
               </li>
             </ul>
           </div>

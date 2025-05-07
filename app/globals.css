@@ -46,7 +46,8 @@
   --color-club-accent: #ffffff;      
   --color-club-dark: #1f2937;       
   --color-club-light: #f9fafb;  
-  --font-sans: var(--font-geistSans);
+  --color-club-black: #0F0F0F;
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-oswald);
 }
 

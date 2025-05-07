@@ -14,7 +14,10 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "Club Central Argentino Olímpico",
+  title: {
+    template: '%s | CCAO',
+    default: 'Club Central Argentino Olímpico',
+  },
   description: "Sitio Oficial",
 };
 
