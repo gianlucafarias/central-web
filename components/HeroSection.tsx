@@ -47,7 +47,7 @@ export default function HeroSection() {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src="/ccaodrone-optimized.mp4" type="video/mp4" />
           Tu navegador no soporta videos HTML5.
