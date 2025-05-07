@@ -12,20 +12,25 @@ import Footer from '@/components/Footer'
 // Podrías crear un HeroSection más genérico o reutilizar ClubHeroSection si lo ajustas
 import ClubHeroSection from '@/components/el-club.tsx/ClubHeroSection' 
 
+// Definir el tipo para los parámetros resueltos
+interface CategoryPageResolvedParams {
+    categorySlug: string;
+}
+
+// Definir el tipo para las props de la página, con params como una Promise
 interface CategoryPageProps {
-    params: {
-        categorySlug: string
-    }
+    params: Promise<CategoryPageResolvedParams>; // <--- CAMBIO AQUÍ
 }
 
 // Generar metadatos dinámicos para la página de categoría
 export async function generateMetadata(
-    { params }: CategoryPageProps,
+    { params }: CategoryPageProps, // <--- USA LA INTERFAZ ACTUALIZADA
     parent: ResolvingMetadata
 ): Promise<Metadata> {
-    const categoryName = unslugify(params.categorySlug)
+    const resolvedParams = await params; // <--- AWAIT PARAMS
+    const categoryName = unslugify(resolvedParams.categorySlug) // <--- USA resolvedParams
     // Podrías verificar si la categoría existe y tiene noticias antes de generar metadatos
-    const newsItems = await getNewsByCategory(params.categorySlug)
+    const newsItems = await getNewsByCategory(resolvedParams.categorySlug) // <--- USA resolvedParams
 
     if (newsItems.length === 0) {
         return {
@@ -40,8 +45,9 @@ export async function generateMetadata(
     }
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-    const { categorySlug } = params
+export default async function CategoryPage({ params }: CategoryPageProps) { // <--- USA LA INTERFAZ ACTUALIZADA
+    const resolvedParams = await params; // <--- AWAIT PARAMS
+    const { categorySlug } = resolvedParams // <--- USA resolvedParams
     const newsItems = await getNewsByCategory(categorySlug)
     const categoryName = unslugify(categorySlug)
 
