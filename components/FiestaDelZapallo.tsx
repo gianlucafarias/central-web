@@ -24,7 +24,7 @@ export default function FiestaDelZapallo() {
 					Fiesta Nacional del Zapallo
 				</h2>
 				<p className="text-lg md:text-xl mb-8">
-				Una fiesta de historia, presente y futuro.				</p>
+				Una fiesta con historia, presente y futuro.				</p>
 				<button className="cursor-pointer bg-[#ffdc00] text-black font-semibold py-3 px-8 rounded-full hover:bg-yellow-500 transition-colors font-mono" onClick={handleVisitandoClick}>
 					CONOCÉ MÁS
 				</button>
