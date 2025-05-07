@@ -1,7 +1,6 @@
 import React from 'react';
 import { Document, Page, View, Text, Image, StyleSheet, Font } from '@react-pdf/renderer';
 
-// Definir interfaces (pueden importarse si están centralizadas)
 interface MiembroData {
   id: string;
   nombreCompleto: string;
@@ -12,32 +11,23 @@ interface MiembroData {
 
 interface CarnetPDFProps {
   miembro: MiembroData;
-  qrDataURL: string; // Recibe la imagen QR como Data URL
+  qrDataURL: string; 
 }
 
-// Registrar fuentes (opcional, pero recomendado para consistencia)
-// Asegúrate de tener los archivos de fuente en tu proyecto (ej. en /public/fonts)
-// Font.register({
-//   family: 'Oswald', 
-//   fonts: [
-//     { src: '/fonts/Oswald-Regular.ttf' }, 
-//     { src: '/fonts/Oswald-SemiBold.ttf', fontWeight: 600 },
-//   ]
-// });
-// Font.register({ family: 'GeistSans', src: '/fonts/GeistVF.ttf' });
 
-// Estilos para el PDF usando StyleSheet de react-pdf
+
+
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
     backgroundColor: '#E4E4E4',
     padding: 20,
-    fontFamily: 'Helvetica', // Fuente por defecto si no registras otras
+    fontFamily: 'Helvetica', 
   },
   carnet: {
-    width: 240, // Ancho aprox carnet (puntos PDF)
-    height: 150, // Alto aprox carnet
-    backgroundColor: '#4a90e2', // Un color base (el gradiente es complejo en PDF)
+    width: 240, 
+    height: 150, 
+    backgroundColor: '#4a90e2', 
     borderRadius: 8,
     padding: 10,
     color: 'white',
@@ -69,8 +59,8 @@ const styles = StyleSheet.create({
   },
   datosContainer: {
     flex: 1,
-    justifyContent: 'space-between', // Distribuye espacio entre datos y QR
-    height: '100%', // Ocupa altura disponible
+    justifyContent: 'space-between', 
+    height: '100%', 
   },
   datosText: {
     fontSize: 9,
@@ -85,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 2,
     borderRadius: 2,
-    width: 50, // Tamaño contenedor QR
+    width: 50, 
     height: 50,
     alignSelf: 'flex-start',
   },
@@ -104,7 +94,7 @@ const styles = StyleSheet.create({
   }
 });
 
-// Asume que tienes una URL base configurada
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
 
 const CarnetPDF: React.FC<CarnetPDFProps> = ({ miembro, qrDataURL }) => {

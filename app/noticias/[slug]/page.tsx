@@ -2,28 +2,25 @@ import React from 'react'
 import Image from 'next/image'
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Calendar, User, Tag } from 'lucide-react' // Iconos adicionales
-import { getNewsBySlug, getAllNewsSlugs, formatDate, slugify, getAllNews } from '@/lib/news' // Importar funciones de datos
+import { Calendar, User, Tag } from 'lucide-react' 
+import { getNewsBySlug, getAllNewsSlugs, formatDate, slugify, getAllNews } from '@/lib/news'
 import Footer from '@/components/Footer'
-import Link from 'next/link' // Asegurarse de que Link esté importado
+import Link from 'next/link' 
 
-// Definir el tipo para los parámetros resueltos
 interface NewsArticlePageResolvedParams {
 	slug: string;
 }
 
-// Definir el tipo para las props de la página, con params como una Promise
 interface NewsArticlePageProps {
-	params: Promise<NewsArticlePageResolvedParams>; // <--- CAMBIO AQUÍ
+	params: Promise<NewsArticlePageResolvedParams>; 
 }
 
-// Generar metadatos dinámicos
 export async function generateMetadata(
-	{ params }: NewsArticlePageProps, // <--- USA LA INTERFAZ ACTUALIZADA
+	{ params }: NewsArticlePageProps, 
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
-	const resolvedParams = await params; // <--- AWAIT PARAMS
-	const newsItem = await getNewsBySlug(resolvedParams.slug) // <--- USA resolvedParams.slug
+	const resolvedParams = await params; 
+	const newsItem = await getNewsBySlug(resolvedParams.slug) 
 
 	if (!newsItem) {
 		return {
@@ -41,32 +38,27 @@ export async function generateMetadata(
 }
 
 export default async function NewsArticlePage({
-	params, // <--- USA LA INTERFAZ ACTUALIZADA (implícitamente)
+	params, 
 }: NewsArticlePageProps) {
-	const resolvedParams = await params; // <--- AWAIT PARAMS
-	const newsItem = await getNewsBySlug(resolvedParams.slug) // <--- USA resolvedParams.slug
-	// Para el sidebar, podríamos querer una lista de todas las categorías o las más recientes
-	// Aquí obtendremos todas las noticias para extraer las categorías únicas y las noticias recientes
+	const resolvedParams = await params; 
+	const newsItem = await getNewsBySlug(resolvedParams.slug) 
 	const allNews = await getAllNews() 
 
 	if (!newsItem) {
 		notFound() 
 	}
 
-	// Obtener noticias recientes (excluyendo la actual)
 	const recentNews = allNews
 		.filter(n => n.slug !== newsItem.slug)
 		.sort((a, b) => b.date.getTime() - a.date.getTime())
-		.slice(0, 3) // Mostrar 3 noticias recientes
+		.slice(0, 3) 
 
-	// Obtener categorías únicas para el sidebar
 	const uniqueCategories = Array.from(new Set(allNews.map(n => n.category)))
 
 	return (
 		<div>
 			<article className='bg-slate-100 px-4 py-36 md:py-20 lg:py-34'>
 				<div className='container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12'>
-					{/* Columna Principal del Artículo */}
 					<div className='lg:col-span-2 w-full bg-white rounded-xl shadow-lg p-6 md:p-8 lg:p-10'>
 						<h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-club-dark mb-4 md:mb-6 text-center lg:text-left font-mono'>
 							{newsItem.title}
@@ -122,9 +114,7 @@ export default async function NewsArticlePage({
 						</div>
 					</div>
 
-					{/* Sidebar */}
 					<aside className='lg:col-span-1 w-full space-y-6 lg:sticky lg:top-28 h-fit'>
-						{/* Sección de Anuncio Placeholder */}
 						<div className='rounded-xl space-y-4'>
 							<div className='bg-gray-200 h-48 flex items-center justify-center rounded-md'>
 								<p className='text-gray-500'>Publicidad 1</p>
@@ -173,7 +163,6 @@ export default async function NewsArticlePage({
 	)
 }
 
-// Generar rutas estáticas para cada noticia
 export async function generateStaticParams() {
 	const slugs = await getAllNewsSlugs()
 	return slugs.map((s) => ({ slug: s.slug }))

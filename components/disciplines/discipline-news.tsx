@@ -1,5 +1,5 @@
 import React from 'react'
-import { NewsLink } from '@/types/discipline' // Assuming types alias works
+import { NewsLink } from '@/types/discipline' 
 import NewsCard from '../NewsCard'
 
 interface DisciplineNewsProps {
@@ -8,7 +8,7 @@ interface DisciplineNewsProps {
 
 export default function DisciplineNews({ newsItems }: DisciplineNewsProps) {
 	if (!newsItems || newsItems.length === 0) {
-		return null // Don't render if no news
+		return null 
 	}
 
 	return (

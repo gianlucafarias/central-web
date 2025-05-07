@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
-import useEmblaCarousel, { UseEmblaCarouselType } from 'embla-carousel-react'
+import useEmblaCarousel from 'embla-carousel-react'
 
 const IMAGES = [
 	{ src: '/historia/hist1.jpeg', alt: 'Imagen histórica del club 1' },

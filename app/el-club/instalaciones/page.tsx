@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import SectionDivider from '@/components/SectionDivider';
 import Footer from '@/components/Footer';
@@ -34,13 +33,11 @@ export default function InstallationsSection() {
 
   return (
     <section id="instalaciones" className="relative bg-white">
-      {/* Separador de sección con efecto rasgado */}
       <div className="-mt-1">
         <SectionDivider color="#ffffff" className="h-20" />
       </div>
       
       <div className="container mx-auto px-6 py-20">
-        {/* Título de la sección */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-mono">Nuestras Instalaciones</h2>
           
@@ -49,7 +46,6 @@ export default function InstallationsSection() {
           </p>
         </div>
 
-        {/* Grid de instalaciones */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {installations.map((item) => (
             <div key={item.id} className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105">
@@ -60,7 +56,6 @@ export default function InstallationsSection() {
                   alt={item.title}
                   fill
                   className="object-cover"
-                  // Fallback para imágenes no disponibles
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = `https://via.placeholder.com/800x600/111/fff?text=${item.title.replace(/\s+/g, '+')}`;
@@ -83,7 +78,6 @@ export default function InstallationsSection() {
           ))}
         </div>
         
-        {/* Banner de reservas */}
         <div className="mt-16 bg-gray-100 rounded-xl p-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:mr-8">
@@ -99,7 +93,6 @@ export default function InstallationsSection() {
         </div>
       </div>
 
-      {/* Separador inverso en la parte inferior (opcional) */}
       <div className="mt-10">
         <Footer />
       </div>

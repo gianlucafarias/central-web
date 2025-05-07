@@ -1,18 +1,13 @@
-'use client' // Necesario para hooks como useState, useEffect, useRef
+'use client' 
 
 import Image from 'next/image'
-import Footer from '@/components/Footer' // Asumiendo que existe un componente Footer
-import { useState, useEffect, useRef } from 'react'; // Importar hooks
-import { Facebook, Instagram, Twitter, Youtube, MapPin } from "lucide-react";
+import Footer from '@/components/Footer' 
+import { useState, useEffect, useRef } from 'react'; 
+import { Facebook, Instagram, Twitter } from "lucide-react";
 
-// No se puede exportar metadata directamente desde un client component de esta forma.
-// Se deberá manejar a través del componente Layout o usando la API de metadata en un Server Component padre si es posible.
-// export const metadata: Metadata = {
-// 	title: 'Fiesta Nacional del Zapallo',
-//   };
+
 const imageUrl = '/fnz/fnzdia2.jpg' 
 
-// Hook useOnScreen (copiado de SociosSection.tsx)
 function useOnScreen(ref: React.RefObject<Element | null>, options?: IntersectionObserverInit) {
   const [isIntersecting, setIntersecting] = useState(false);
 
@@ -38,8 +33,6 @@ function useOnScreen(ref: React.RefObject<Element | null>, options?: Intersectio
 }
 
 export default function FiestaNacionalDelZapallo() {
-	const [edicionesCount, setEdicionesCount] = useState(0);
-	const [diasCount, setDiasCount] = useState(0);
 	const [expositoresCount, setExpositoresCount] = useState(0);
 	const [visitantesCount, setVisitantesCount] = useState(0);
 	const [hasAnimated, setHasAnimated] = useState(false);
@@ -47,13 +40,10 @@ export default function FiestaNacionalDelZapallo() {
 	const statsSectionRef = useRef<HTMLDivElement>(null);
 	const isStatsSectionVisible = useOnScreen(statsSectionRef, { threshold: 0.3 });
 
-	const targetEdiciones = 53;
-	const targetDias = 3;
 	const targetExpositores = 50;
 	const targetVisitantes = 4000;
-	const animationDuration = 2000; // ms
+	const animationDuration = 2000; 
 
-	// Refs y estados para animación de secciones
 	const actividadesSectionRef = useRef<HTMLElement>(null);
 	const isActividadesSectionVisible = useOnScreen(actividadesSectionRef, { threshold: 0.1 });
 	const [hasActividadesFadedIn, setHasActividadesFadedIn] = useState(false);
@@ -72,16 +62,12 @@ export default function FiestaNacionalDelZapallo() {
 				const progress = timestamp - startTime;
 				const progressRatio = Math.min(progress / animationDuration, 1);
 
-				setEdicionesCount(Math.floor(progressRatio * targetEdiciones));
-				setDiasCount(Math.floor(progressRatio * targetDias));
 				setExpositoresCount(Math.floor(progressRatio * targetExpositores));
 				setVisitantesCount(Math.floor(progressRatio * targetVisitantes));
 
 				if (progress < animationDuration) {
 					requestAnimationFrame(animateStats);
 				} else {
-					setEdicionesCount(targetEdiciones);
-					setDiasCount(targetDias);
 					setExpositoresCount(targetExpositores);
 					setVisitantesCount(targetVisitantes);
 				}
@@ -104,21 +90,17 @@ export default function FiestaNacionalDelZapallo() {
 
 	return (
 		<div className="pt-25 pb-1 md:pb-16">
-			{/* Hero Section - Definido directamente aquí */}
 			<div
 				className="relative flex h-[50vh] min-h-[400px] items-center justify-center bg-cover bg-center text-center text-white "
-				style={{ backgroundImage: "url('/fnz.jpg')" }} // Placeholder o imagen relevante
+				style={{ backgroundImage: "url('/fnz.jpg')" }} 
 			>
-				{/* Overlay oscuro para mejorar legibilidad del texto */}
 				<div className="absolute inset-0 bg-black/50"></div>
 
-				{/* Contenido del Hero */}
 				<div className="relative z-10 px-4">
 					<Image src="/fnz/logofnz2.png" className="w-3/4 mx-auto" alt="Logo" width={700} height={300} />
 				</div>
 			</div>
 
-			{/* Stats Section */}
 			<section ref={statsSectionRef} className="bg-[#035F4D] py-8 text-white">
 				<div className="container mx-auto px-4 md:px-6 lg:px-8">
 					<div className="grid grid-cols-2 gap-4 text-center md:grid-cols-4 md:gap-8">
@@ -146,9 +128,7 @@ export default function FiestaNacionalDelZapallo() {
 				</div>
 			</section>
 
-			{/* Contenido de la página */}
 			<main className="py-16">
-				{/* Activity Grid Section */}
 				<section 
 					ref={actividadesSectionRef}
 					className={`container mx-auto mb-16 px-4 md:px-6 lg:px-8 transition-opacity duration-1000 ease-in-out ${hasActividadesFadedIn ? 'opacity-100' : 'opacity-0'}`}
@@ -158,7 +138,6 @@ export default function FiestaNacionalDelZapallo() {
 						¿Qué Podés Disfrutar?
 					</h2>
 					<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-						{/* Card 1: Objetivo y Espectáculos */}
 						<div className="group relative h-64 overflow-hidden rounded-xl shadow-lg">
 							<Image
 								src="/fnz/espectaculos.jpg"
@@ -176,10 +155,8 @@ export default function FiestaNacionalDelZapallo() {
 									Disfruta de emocionantes espectáculos folclóricos y música en vivo para toda la familia.
 								</p>
 							</div>
-							{/* Podríamos añadir un tooltip o modal con el texto detallado al hacer hover/click */}
-						</div>
+						</div>	
 
-						{/* Card 2: Muestra Ganadera */}
 						<div className="group relative h-64 overflow-hidden rounded-xl shadow-lg">
 							<Image
 								src="/fnz/academias.jpg"
@@ -199,7 +176,6 @@ export default function FiestaNacionalDelZapallo() {
 							</div>
 						</div>
 
-						{/* Card 3: Ceres y su Historia */}
 						<div className="group relative h-64 overflow-hidden rounded-xl shadow-lg">
 							<Image
 								src="/fnz/juegos.jpg"
@@ -219,7 +195,6 @@ export default function FiestaNacionalDelZapallo() {
 							</div>
 						</div>
 
-						{/* Card 4: Actividades Recreativas */}
 						<div className="group relative h-64 overflow-hidden rounded-xl shadow-lg">
 							<Image
 								src="/fnz/patiocomidas.jpg"
@@ -239,10 +214,9 @@ export default function FiestaNacionalDelZapallo() {
 							</div>
 						</div>
 
-						{/* Card 5: Última Edición */}
 						<div className="group relative h-64 overflow-hidden rounded-xl shadow-lg">
 							<Image
-								src="/fnz/paseo.jpg" // Usamos la imagen real que tenías
+								src="/fnz/paseo.jpg" 
 								alt="Última Edición Fiesta del Zapallo"
 								layout="fill"
 								objectFit="cover"
@@ -259,10 +233,9 @@ export default function FiestaNacionalDelZapallo() {
 							</div>
 						</div>
 
-                        {/* Card 6: Última Edición */}
 						<div className="group relative h-64 overflow-hidden rounded-xl shadow-lg">
 							<Image
-								src="/fnz/charlas.jpg" // Usamos la imagen real que tenías
+								src="/fnz/charlas.jpg" 
 								alt="Última Edición Fiesta del Zapallo"
 								layout="fill"
 								objectFit="cover"
@@ -282,9 +255,8 @@ export default function FiestaNacionalDelZapallo() {
 					</div>
 				</section>
 
-				{/* Reviví la Última Edición Section */}
 				<section
-			className="relative bg-cover bg-center bg-no-repeat bg-fixed py-16" // Añadido bg-fixed para parallax
+			className="relative bg-cover bg-center bg-no-repeat bg-fixed py-16" 
 			style={{ backgroundImage: `url(${imageUrl})` }}
 			aria-label="Sección Fiesta del Zapallo"
 		>
@@ -295,9 +267,8 @@ export default function FiestaNacionalDelZapallo() {
 							Reviví la Última Edición
 						</h2>
 						<div className="flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-12 md:gap-16">
-							{/* Círculo Día 1 */}
 							<a
-								href="https://www.instagram.com/fiestanacionaldelzapallo/reel/DBAdnUIgSRk/?hl=es" // Replace with actual Instagram link for Day 1
+								href="https://www.instagram.com/fiestanacionaldelzapallo/reel/DBAdnUIgSRk/?hl=es" 
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex flex-col items-center text-center"
@@ -312,9 +283,8 @@ export default function FiestaNacionalDelZapallo() {
 								</div>
 								
 							</a>
-							{/* Círculo Día 2 */}
 							<a
-								href="https://www.instagram.com/fiestanacionaldelzapallo/reel/DBDVC7Xgbsc/?hl=es" // Replace with actual Instagram link for Day 2
+								href="https://www.instagram.com/fiestanacionaldelzapallo/reel/DBDVC7Xgbsc/?hl=es" 
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex flex-col items-center text-center"
@@ -328,9 +298,8 @@ export default function FiestaNacionalDelZapallo() {
                                      />
 								</div>
 							</a>
-							{/* Círculo Día 3 */}
 							<a
-								href="https://www.instagram.com/fiestanacionaldelzapallo/reel/DBFrKyOAnu4/?hl=es" // Replace with actual Instagram link for Day 3
+								href="https://www.instagram.com/fiestanacionaldelzapallo/reel/DBFrKyOAnu4/?hl=es" 
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex flex-col items-center text-center"
@@ -348,7 +317,6 @@ export default function FiestaNacionalDelZapallo() {
 					</div>
 				</section>
 
-				{/* Soberanas Section */}
 				<section 
 					ref={soberanasSectionRef}
 					className={`py-16 transition-opacity duration-1000 ease-in-out ${hasSoberanasFadedIn ? 'opacity-100' : 'opacity-0'}`}
@@ -358,15 +326,12 @@ export default function FiestaNacionalDelZapallo() {
 						<h2 className="mb-12 text-center text-4xl font-bold tracking-tight text-gray-700">
 							Nuestras Soberanas
 						</h2>
-						{/* Contenedor principal para la jerarquía */}
 						<div className="flex flex-col items-center gap-12">
-							{/* Reina - Centrada y potencialmente más grande */}
 							<div className="w-full max-w-sm">
-								{/* Card Reina */}
 								<div className="relative overflow-hidden rounded-xl bg-white text-center shadow-lg">
 									<div className="relative h-72 w-full">
 										<Image
-											src="/fnz/reina.png" // Placeholder
+											src="/fnz/reina.png"
 											alt="Reina Nacional del Zapallo"
 											layout="fill"
 											objectFit="cover"
@@ -386,13 +351,11 @@ export default function FiestaNacionalDelZapallo() {
 								</div>
 							</div>
 
-							{/* Contenedor para Princesas */}
 							<div className="grid w-full grid-cols-1 gap-8 sm:grid-cols-2 md:max-w-2xl lg:max-w-3xl">
-								{/* Card 1ra Princesa */}
 								<div className="relative overflow-hidden rounded-xl bg-white text-center shadow-lg">
 									<div className="relative h-64 w-full">
 										<Image
-											src="/fnz/1eraprincesa.png" // Placeholder
+											src="/fnz/1eraprincesa.png" 
 											alt="1ra Princesa"
 											layout="fill"
 											objectFit="cover"
@@ -410,11 +373,10 @@ export default function FiestaNacionalDelZapallo() {
 										</div>
 									</div>
 								</div>
-								{/* Card 2da Princesa */}
 								<div className="relative overflow-hidden rounded-xl bg-white text-center shadow-lg">
 									<div className="relative h-64 w-full">
 										<Image
-											src="/fnz/2daprincesa.png" // Placeholder
+											src="/fnz/2daprincesa.png" 
 											alt="2da Princesa"
 											layout="fill"
 											objectFit="cover"
@@ -434,13 +396,11 @@ export default function FiestaNacionalDelZapallo() {
 								</div>
 							</div>
 
-							{/* Contenedor para Otros Títulos */}
 							<div className="grid w-full grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:max-w-5xl">
-								{/* Card Embajadora */}
 								<div className="relative overflow-hidden rounded-xl bg-white text-center shadow-lg">
 									<div className="relative h-64 w-full">
 										<Image
-											src="/fnz/embajadora.png" // Placeholder
+											src="/fnz/embajadora.png" 
 											alt="Embajadora"
 											layout="fill"
 											objectFit="cover"
@@ -458,11 +418,10 @@ export default function FiestaNacionalDelZapallo() {
 										</div>
 									</div>
 								</div>
-								{/* Card Miss Elegancia */}
 								<div className="relative overflow-hidden rounded-xl bg-white text-center shadow-lg">
 									<div className="relative h-64 w-full">
 										<Image
-											src="/fnz/elegancia.png" // Placeholder
+											src="/fnz/elegancia.png" 
 											alt="Miss Elegancia"
 											layout="fill"
 											objectFit="cover"
@@ -480,11 +439,10 @@ export default function FiestaNacionalDelZapallo() {
 										</div>
 									</div>
 								</div>
-								{/* Card Miss Simpatia */}
 								<div className="relative overflow-hidden rounded-xl bg-white text-center shadow-lg">
 									<div className="relative h-64 w-full">
 										<Image
-											src="/fnz/simpatia.png" // Placeholder
+											src="/fnz/simpatia.png" 
 											alt="Miss Simpatia"
 											layout="fill"
 											objectFit="cover"
@@ -507,7 +465,6 @@ export default function FiestaNacionalDelZapallo() {
 					</div>
 				</section>
 
-				{/* Sumate Section */}
 				<section className="bg-amber-50 py-16" id="sumate">
 					<div className="container mx-auto px-4 text-center md:px-6 lg:px-8">
 						<h2 className="mb-8 text-4xl font-bold tracking-tight">
@@ -518,9 +475,8 @@ export default function FiestaNacionalDelZapallo() {
 							ninguna novedad.
 						</p>
 						<div className="flex items-center justify-center space-x-6">
-							{/* Placeholder Icon Facebook */}
 							<a
-								href="#" // Replace with actual link
+								href="#" 
 								target="_blank"
 								rel="noopener noreferrer"
 								className="text-amber-600 transition-colors hover:text-amber-800"
@@ -528,9 +484,8 @@ export default function FiestaNacionalDelZapallo() {
 							>
 								<Facebook className="h-10 w-10" />
 							</a>
-							{/* Placeholder Icon Instagram */}
 							<a
-								href="#" // Replace with actual link
+								href="#" 
 								target="_blank"
 								rel="noopener noreferrer"
 								className="text-amber-600 transition-colors hover:text-amber-800"
@@ -539,9 +494,8 @@ export default function FiestaNacionalDelZapallo() {
 								<Instagram className="h-10 w-10" />
 								
 							</a>
-							{/* Placeholder Icon X/Twitter */}
 							<a
-								href="#" // Replace with actual link
+								href="#" 
 								target="_blank"
 								rel="noopener noreferrer"
 								className="text-amber-600 transition-colors hover:text-amber-800"
@@ -554,14 +508,12 @@ export default function FiestaNacionalDelZapallo() {
 					</div>
 				</section>
 
-				{/* Sponsors Section Placeholder */}
 				<section className="py-12" id="sponsors">
 					<div className="container mx-auto px-4 md:px-6 lg:px-8">
 						<h2 className="mb-10 text-center text-3xl font-semibold text-gray-700">
 							Acompañan
 						</h2>
 						<div className="flex flex-wrap items-center justify-center gap-8 opacity-70">
-							{/* Placeholder Logos */}
 							<Image
 								src="/FNZ DIA 2 (622).jpg"
 								alt="Sponsor 1"

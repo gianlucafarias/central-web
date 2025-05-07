@@ -1,8 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import { Discipline } from '@/types/discipline' // Assuming types alias works
+import { Discipline } from '@/types/discipline' 
 
-// Extract QuickLink type for cleaner props
 type QuickLink = NonNullable<Discipline['quickLinks']>[number]
 
 interface DisciplineQuickLinksProps {
@@ -30,7 +29,7 @@ export default function DisciplineQuickLinks({ links }: DisciplineQuickLinksProp
 							{link.title}
 						</Link>
 					) : (
-						<span>{link.title}</span> // Render as plain text if no URL
+						<span>{link.title}</span> 
 					)}
 				</div>
 			))}

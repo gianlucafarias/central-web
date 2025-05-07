@@ -43,10 +43,6 @@ const comisionVoleyMiembros: MiembroInfo[] = [
   { nombre: 'Juan Ignacio Zin', cargo: 'Titular 2°' },
 ]
 
-// TODO: Definir datos para subcomisiones si es necesario
-// const subComisionesDeportivasData: MiembroComision[] = [
-//   // { nombre: 'NOMBRE RESPONSABLE FÚTBOL', cargo: 'Responsable de Fútbol', subcomision: 'Fútbol' },
-// ]
 
 function ListaMiembros ({ miembros }: { miembros: MiembroInfo[] }) {
   if (!miembros || miembros.length === 0) return null
@@ -69,7 +65,6 @@ export default function ComisionDirectivaPage () {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mb-26'>
 
         <div className='flex flex-col md:flex-row md:gap-x-10 lg:gap-x-16'>
-          {/* Columna Izquierda: Comisión Directiva */}
           <div className='md:w-1/2 space-y-6 mb-8 md:mb-0'>
             <section>
          
@@ -78,7 +73,7 @@ export default function ComisionDirectivaPage () {
               </h2>
               <div className='mb-2'>
                 <p className='text-md font-semibold text-gray-700'>{presidenteData.cargo}: {presidenteData.nombre}</p>
-                {/* Si se decide re-añadir la foto del presidente, podría ir aquí 
+                {/* Si se decide re-añadir la foto del presidente
                 {presidenteData.fotoUrl && ( 
                   <img 
                     src={presidenteData.fotoUrl} 
@@ -92,7 +87,6 @@ export default function ComisionDirectivaPage () {
             </section>
           </div>
 
-          {/* Columna Derecha: Otras Comisiones */}
           <div className='md:w-1/2 space-y-8'>
             <section>
             <h2 className='text-2xl font-semibold text-gray-700 mb-4 uppercase border-b-2 border-[#ffdc00] pb-2 font-mono'>

@@ -1,17 +1,15 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { IdCard, UsersRound, CreditCard } from "lucide-react";
-// Iconos (ejemplo, necesitarías instalar lucide-react)
-// import { CalendarDays, Users, Hash, CreditCard } from 'lucide-react'
+import { IdCard, UsersRound } from "lucide-react";
 
-// TODO: Obtener datos reales del socio (nombre, estado, etc.)
+
 const socioData = {
-	nombre: "Juan Pérez", // Ejemplo
+	nombre: "Juan Pérez", 
 	numeroSocio: "12345",
-	estadoCuota: "Al día", // o "Pendiente"
-	fechaVencimientoCuota: "10/08/2024", // Ejemplo
-	cantidadFamiliares: 2, // Ejemplo
+	estadoCuota: "Al día", 
+	fechaVencimientoCuota: "10/08/2024", 
+	cantidadFamiliares: 2, 
 };
 
 export default function SocioDashboardPage() {
@@ -22,7 +20,6 @@ export default function SocioDashboardPage() {
 			</h1>
 
 			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-				{/* Tarjeta Estado de Socio - Con Flex interno */}
 				<Card className="flex flex-col pt-5 pb-5">
 					<CardHeader>
 						<CardTitle className="flex items-center space-x-2">
@@ -33,7 +30,6 @@ export default function SocioDashboardPage() {
 					</CardHeader>
 					<CardContent className="space-y-4 pt-4 flex-grow">
 						<div className="flex items-start space-x-2">
-							{/* <Hash className="h-4 w-4 text-muted-foreground mt-1" /> */}
 							<p className="text-sm">
 								Número de Socio:{" "}
 								<strong className="font-medium text-foreground">
@@ -42,7 +38,6 @@ export default function SocioDashboardPage() {
 							</p>
 						</div>
 						<div className="flex items-start space-x-2">
-							{/* <CalendarDays className="h-4 w-4 text-muted-foreground mt-1" /> */}
 							<div className="text-sm">
 								<p>
 									Estado Cuota:{" "}
@@ -72,7 +67,6 @@ export default function SocioDashboardPage() {
 					</CardFooter>
 				</Card>
 
-				{/* Tarjeta Grupo Familiar Resumen - Con Flex interno */}
 				<Card className="flex flex-col pt-5 pb-5">
 					<CardHeader>
 						<CardTitle className="flex items-center space-x-2">
@@ -91,17 +85,7 @@ export default function SocioDashboardPage() {
 					</CardFooter>
 				</Card>
 
-				{/* Placeholder para futuras tarjetas */}
-				{/*
-				<Card>
-					<CardHeader>
-						<CardTitle>Noticias para Socios</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<p>Próximamente...</p>
-					</CardContent>
-				</Card>
-				*/}
+			
 			</div>
 		</div>
 	);

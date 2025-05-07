@@ -1,13 +1,12 @@
-'use client'; // Temporalmente client para datos de ejemplo
+'use client'; 
 
 import CarnetDisplay from '@/components/socio/CarnetDisplay';
 
-// TODO: Cargar datos reales del socio y familiares desde DB/API
 const socioPrincipal = {
-	id: 'socio-123', // ID único para QR
+	id: 'socio-123', 
 	nombreCompleto: 'Juan Ignacio Pérez',
 	numeroSocio: '12345',
-	categoria: 'Activo', // O estado cuota
+	categoria: 'Activo', 
 	avatarUrl: '/placeholder-avatar.png',
 };
 
@@ -17,7 +16,6 @@ const familiares = [
 ];
 
 export default function CarnetPage() {
-	// Si fuera Server Component, aquí harías el fetch
 
 	return (
 		<div className="space-y-8">
@@ -29,7 +27,7 @@ export default function CarnetPage() {
 			{familiares.length > 0 && (
 				<div>
 					<h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Carnets Grupo Familiar</h2>
-					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> {/* Ajustado grid */}
+					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> 
 						{familiares.map(familiar => (
 							<CarnetDisplay key={familiar.id} miembro={familiar} />
 						))}

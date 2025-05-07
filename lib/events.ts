@@ -1,4 +1,3 @@
-// Definición de la interfaz para eventos
 export interface Event {
     id: number;
     title: string;
@@ -11,8 +10,6 @@ export interface Event {
     awayTeam?: string;
   }
   
-  // Sample event data con objetos Date
-  // TODO: Mover esto a un archivo separado
   export const events: { upcoming: Event[]; past: Event[] } = {
     upcoming: [
       {

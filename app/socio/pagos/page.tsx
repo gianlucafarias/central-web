@@ -8,6 +8,8 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { Card } from "@/components/ui/card";
+
+
 export default function PagosPage() {
 	return (
 <div className="space-y-6">

@@ -2,13 +2,13 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 
 export interface NewsItem {
-	id: number
+	id: number | string 
 	slug: string 
 	title: string
-	excerpt: string
-	content: string 
+	excerpt?: string    
+	content?: string    
 	date: Date
-	author: string
+	author?: string     
 	imageUrl: string
 	category: string
 }
@@ -102,18 +102,14 @@ El Club agradece de antemano la comprensión y colaboración de todos sus miembr
 	},
 ]
 
-// Función para obtener todos los artículos de noticias
 export async function getAllNews(): Promise<NewsItem[]> {
-	// TODO: llamada a una API o base de datos
-	// Por ahora, se devuelve los datos de ejemplo con un pequeño retraso simulado
 	return new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(newsItemsData)
-		}, 500) // Simula un retraso de red
+		}, 500) 
 	})
 }
 
-// Función para obtener un artículo de noticia por su slug
 export async function getNewsBySlug(
 	slug: string
 ): Promise<NewsItem | undefined> {
@@ -121,7 +117,6 @@ export async function getNewsBySlug(
 	return allNews.find((news) => news.slug === slug)
 }
 
-// Función para obtener todos los slugs de las noticias (para generateStaticParams)
 export async function getAllNewsSlugs(): Promise<{ slug: string }[]> {
 	const allNews = await getAllNews()
 	return allNews.map((news) => ({
@@ -129,24 +124,20 @@ export async function getAllNewsSlugs(): Promise<{ slug: string }[]> {
 	}))
 }
 
-// Función de utilidad para formatear fechas
 export const formatDate = (date: Date): string => {
 	return format(date, 'd LLL, yyyy', { locale: es })
 }
 
-// Función para convertir un string a formato slug (kebab-case)
 export const slugify = (text: string): string => {
 	return text
 		.toString()
 		.toLowerCase()
 		.trim()
-		.replace(/\s+/g, '-') // Reemplaza espacios con -
-		.replace(/[^\w\-]+/g, '') // Elimina caracteres no alfanuméricos excepto -
-		.replace(/\-\-+/g, '-') // Reemplaza múltiples - con uno solo
+		.replace(/\s+/g, '-') 
+		.replace(/[^\w\-]+/g, '') 
+		.replace(/\-\-+/g, '-') 
 }
 
-// Función para obtener el nombre de la categoría a partir de un slug
-// (Capitaliza la primera letra de cada palabra)
 export const unslugify = (slug: string): string => {
     return slug
         .split('-')
@@ -154,7 +145,6 @@ export const unslugify = (slug: string): string => {
         .join(' ')
 }
 
-// Función para obtener todas las noticias de una categoría específica (por slug de categoría)
 export async function getNewsByCategory(
 	categorySlug: string
 ): Promise<NewsItem[]> {
@@ -164,7 +154,6 @@ export async function getNewsByCategory(
 	)
 }
 
-// Función para obtener todos los slugs de categorías únicos
 export async function getAllCategorySlugs(): Promise<{ categorySlug: string }[]> {
 	const allNews = await getAllNews()
 	const uniqueCategories = new Set(allNews.map((news) => slugify(news.category)))

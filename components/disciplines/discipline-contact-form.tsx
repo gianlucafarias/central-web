@@ -1,5 +1,4 @@
 'use client'
-
 import React from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -16,10 +15,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-// Assuming you might have a toast component for feedback
-// import { toast } from "@/components/ui/use-toast"
 
-// Define the schema for validation
 const formSchema = z.object({
 	name: z.string().min(2, {
 		message: 'El nombre debe tener al menos 2 caracteres.',
@@ -27,14 +23,13 @@ const formSchema = z.object({
 	email: z.string().email({
 		message: 'Por favor ingresa un email válido.',
 	}),
-	phone: z.string().optional(), // Optional phone number
+	phone: z.string().optional(), 
 	message: z.string().min(10, {
 		message: 'La consulta debe tener al menos 10 caracteres.',
 	}),
 })
 
 export default function DisciplineContactForm() {
-	// 1. Define your form.
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -45,17 +40,9 @@ export default function DisciplineContactForm() {
 		},
 	})
 
-	// 2. Define a submit handler.
 	function onSubmit(values: z.infer<typeof formSchema>) {
-		// Do something with the form values.
-		// For now, just log to console. Replace with actual API call.
 		console.log('Form submitted:', values)
-		// Example feedback:
-		// toast({
-		//   title: "Consulta Enviada",
-		//   description: "Gracias por contactarnos, te responderemos pronto.",
-		// })
-		form.reset() // Reset form after submission
+		form.reset() 
 	}
 
 	return (

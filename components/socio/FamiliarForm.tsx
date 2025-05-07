@@ -11,7 +11,6 @@ import { familiarFormSchema, type FamiliarFormData } from "@/app/socio/familiare
 import { useState } from "react";
 
 interface FamiliarFormProps {
-	// No necesita initialData si siempre es para añadir
 	onSubmit: (data: FamiliarFormData) => Promise<{ success: boolean; message: string } | void>;
 	onCancel: () => void;
 }
@@ -44,7 +43,6 @@ export default function FamiliarForm({ onSubmit, onCancel }: FamiliarFormProps) 
 		if (result && !result.success) {
 			setSubmitError(result.message);
 		}
-		// La redirección o cierre se maneja en la página contenedora
 		setIsSubmitting(false);
 	}
 

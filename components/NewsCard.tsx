@@ -42,9 +42,11 @@ export default function NewsCard(news: NewsItem) {
 					</Link>
 				</CardHeader>
 				<CardContent className='flex-grow pb-2 pt-1 px-0'>
-					<p className='text-gray-600 mb-3 text-sm line-clamp-3'>
-						{news.excerpt}
-					</p>
+					{news.excerpt && (
+						<p className='text-gray-600 mb-3 text-sm line-clamp-3'>
+							{news.excerpt}
+						</p>
+					)}
 					<div className='flex text-gray-500 text-xs gap-4'>
 						<div className='flex items-center gap-1'>
 							<Calendar size={14} />

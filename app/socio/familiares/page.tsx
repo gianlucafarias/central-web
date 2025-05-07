@@ -1,21 +1,19 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Link from 'next/link';
 import { quitarFamiliar } from './actions';
 
-// Tipo para un miembro familiar
 interface MiembroFamiliar {
-	id: string; // Necesario para identificar al quitar
+	id: string; 
 	nombreCompleto: string;
 	dni: string;
 	parentesco: string;
 }
 
-// TODO: Cargar datos reales
 const datosInicialesFamiliares: MiembroFamiliar[] = [
 	{ id: '1', nombreCompleto: 'Maria Garcia', dni: '32.111.222', parentesco: 'Cónyuge' },
 	{ id: '2', nombreCompleto: 'Pedro Pérez', dni: '50.333.444', parentesco: 'Hijo/a' },

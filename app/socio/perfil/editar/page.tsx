@@ -4,11 +4,10 @@ import { useRouter } from 'next/navigation';
 import PerfilForm from '@/components/socio/PerfilForm';
 import { actualizarPerfil } from '../actions';
 import { type PerfilFormData } from '../schema';
-import { useState, useEffect } from 'react'; // Añadir useEffect para cargar datos (si fuera necesario)
+import { useState, useEffect } from 'react'; 
 
-// TODO: Implementar carga real de datos iniciales
+
 function cargarDatosIniciales(): PerfilFormData {
-	// Simulación de carga de datos
 	console.log("Simulando carga de datos iniciales para el formulario...");
 	return {
 		nombreCompleto: "Juan Ignacio Pérez (Cargado)",
@@ -38,18 +37,13 @@ export default function EditarPerfilPage() {
 	async function handleFormSubmit(data: PerfilFormData) {
 		const result = await actualizarPerfil(data);
 		if (result?.success) {
-			// TODO: Mostrar mensaje de éxito (Toast?)
 			console.log(result.message);
-			router.push('/socio/perfil'); // Redirigir de vuelta al perfil
-			// Opcionalmente, forzar refresco si no se usa revalidatePath en la acción:
-			// router.refresh(); 
+			router.push('/socio/perfil'); 
 		}
-		// El manejo de errores ya está dentro de PerfilForm
 		return result; 
 	}
 
 	if (!initialData) {
-		// Mostrar un estado de carga mientras se obtienen los datos
 		return <div>Cargando datos del perfil...</div>;
 	}
 
@@ -59,7 +53,7 @@ export default function EditarPerfilPage() {
 			<PerfilForm 
 				initialData={initialData} 
 				onSubmit={handleFormSubmit} 
-				onCancel={() => router.push('/socio/perfil')} // Botón cancelar también redirige
+				onCancel={() => router.push('/socio/perfil')} 
 			/>
 		</div>
 	);

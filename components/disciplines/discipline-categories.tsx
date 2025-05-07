@@ -6,12 +6,12 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-} from '@/components/ui/accordion' // Reverted to alias
-import { Category } from '@/types/discipline' // Reverted to alias
+} from '@/components/ui/accordion' 
+import { Category } from '@/types/discipline' 
 
 interface DisciplineCategoriesProps {
 	categories: Category[]
-	disciplineName: string // Pass the discipline name for the title
+	disciplineName: string 
 }
 
 export default function DisciplineCategories({
@@ -19,7 +19,7 @@ export default function DisciplineCategories({
 	disciplineName,
 }: DisciplineCategoriesProps) {
 	if (!categories || categories.length === 0) {
-		return null // Don't render anything if there are no categories
+		return null 
 	}
 
 	return (
@@ -46,7 +46,6 @@ export default function DisciplineCategories({
 									disponible.
 								</p>
 							)}
-							{/* Add more details here later if needed, e.g., schedules */}
 						</AccordionContent>
 					</AccordionItem>
 				))}

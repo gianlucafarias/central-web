@@ -1,15 +1,13 @@
 import React from 'react'
-import { Discipline } from '@/types/discipline' // Assuming types alias works
-import { Mail, Phone } from 'lucide-react' // Example icons
+import { Discipline } from '@/types/discipline' 
+import { Mail, Phone } from 'lucide-react' 
 
-// Extract ContactInfo type for clarity
 type ContactInfo = NonNullable<Discipline['contactInfo']>
 
 interface DisciplineSpecificContactProps {
 	contactInfo: ContactInfo
 }
 
-// Helper to create consistent list items
 const ContactItem = ({
 	icon,
 	label,
@@ -42,12 +40,11 @@ const ContactItem = ({
 export default function DisciplineSpecificContact({
 	contactInfo,
 }: DisciplineSpecificContactProps) {
-	// Check if contactInfo exists and has any relevant keys
 	const hasContactInfo =
-		contactInfo && (contactInfo.email || contactInfo.phone) // Add more checks if needed
+		contactInfo && (contactInfo.email || contactInfo.phone) 
 
 	if (!hasContactInfo) {
-		return null // Don't render if no specific info provided
+		return null 
 	}
 
 	return (
@@ -56,21 +53,20 @@ export default function DisciplineSpecificContact({
 			<ul className="list-none p-0 m-0">
 				{contactInfo.phone && (
 					<ContactItem
-						icon={<Phone size={16} />} // Ensure lucide-react is installed
+						icon={<Phone size={16} />} 
 						label="Tel"
 						value={contactInfo.phone}
-						href={`tel:${contactInfo.phone.replace(/\s+/g, '')}`} // Basic tel link
+						href={`tel:${contactInfo.phone.replace(/\s+/g, '')}`} 
 					/>
 				)}
 				{contactInfo.email && (
 					<ContactItem
-						icon={<Mail size={16} />} // Ensure lucide-react is installed
+						icon={<Mail size={16} />} 
 						label="Email"
 						value={contactInfo.email}
 						href={`mailto:${contactInfo.email}`}
 					/>
 				)}
-				{/* Add other contact fields here as needed (e.g., address, specific social media) */}
 			</ul>
 		</section>
 	)

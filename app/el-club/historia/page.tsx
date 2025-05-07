@@ -6,11 +6,8 @@ import HistoricalCarousel from "@/components/el-club/HistoricalCarousel";
 export default function ElClub() {
   return (
     <div>
-      {/* Hero Title Section */}
       <ClubHeroSection title="El Club" />
-      {/* Main content area with a light gray background - Reduced horizontal padding */}
       <div className="bg-slate-100 flex flex-col items-center justify-center px-4 py-8 md:px-6 lg:px-8 -mt-10 pt-20 mb-16">
-        {/* History Section - Card Style - Increased max-width */}
         <section className="w-full max-w-6xl bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <h2 className="mb-6 text-center text-3xl font-bold font-mono">
             Nuestra Historia
@@ -32,7 +29,7 @@ export default function ElClub() {
             </div>
             <div className="relative h-64 w-full md:h-auto">
               <Image
-                src="/historia/hist1.jpeg" // Placeholder image
+                src="/historia/hist1.jpeg" 
                 alt="Imagen de la historia del club"
                 layout="fill"
                 objectFit="cover"
@@ -42,7 +39,6 @@ export default function ElClub() {
           </div>
         </section>
 
-        {/* Additional Section 1 (Image Left, Text Right) - Card Style - Increased max-width */}
         <section className="w-full max-w-6xl bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <h2 className="mb-6 text-center text-3xl font-bold font-mono">
             Hitos Destacados
@@ -50,7 +46,7 @@ export default function ElClub() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div className="relative h-64 w-full md:h-auto md:order-1">
               <Image
-                src="/historia/hist2.jpeg" // Placeholder image
+                src="/historia/hist2.jpeg" 
                 alt="Imagen de hitos del club"
                 layout="fill"
                 objectFit="cover"
@@ -74,7 +70,6 @@ export default function ElClub() {
           </div>
         </section>
 
-        {/* Additional Section 2 (Text Left, Image Right) - Card Style - Increased max-width */}
         <section className="w-full max-w-6xl bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <h2 className="mb-6 text-center text-3xl font-bold font-mono">
             Momentos Inolvidables
@@ -96,7 +91,7 @@ export default function ElClub() {
             </div>
             <div className="relative h-64 w-full md:h-auto md:order-2">
               <Image
-                src="/historia/hist3.jpeg" // Placeholder image
+                src="/historia/hist3.jpeg" 
                 alt="Imagen de momentos inolvidables del club"
                 layout="fill"
                 objectFit="cover"
@@ -106,7 +101,6 @@ export default function ElClub() {
           </div>
         </section>
 
-        {/* Historical Gallery Section - Card Style - Increased max-width */}
         <section className="w-full max-w-6xl bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <h2 className="mb-6 text-center text-3xl font-bold font-mono">
             Galería Histórica
@@ -114,7 +108,6 @@ export default function ElClub() {
           <HistoricalCarousel />
         </section>
 
-        {/* Map Section - Card Style - Increased max-width */}
         <section className="w-full max-w-6xl bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
           <h2 className="mb-6 text-center text-3xl font-bold font-mono">
             Nuestra Ubicación y Contacto

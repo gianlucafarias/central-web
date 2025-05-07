@@ -9,10 +9,8 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
-      // Puedes agregar más remotePatterns aquí para otros dominios de imágenes
     ],
   },
-  // Otras configuraciones que puedas tener
 }
 
 module.exports = nextConfig 

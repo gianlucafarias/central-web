@@ -68,7 +68,7 @@ export const disciplines: Discipline[] = [
 		slug: 'voley',
 		description:
 			'El voley es el deporte rey y en nuestro club lo vivimos con pasión. Ofrecemos categorías para todas las edades, desde voley infantil hasta equipos mayores compitiendo en ligas locales. Nuestros entrenadores calificados se enfocan en el desarrollo técnico, táctico y físico de los jugadores, promoviendo siempre el juego limpio y el compañerismo.\n\nContamos con campos de entrenamiento bien mantenidos y un programa deportivo que busca no solo formar buenos voleybolistas, sino también grandes personas. Participamos activamente en campeonatos y torneos, buscando siempre alcanzar nuevos logros deportivos. ¡Vení a formar parte de nuestra historia voleybolística!',
-		mainImageUrl: '/images/disciplines/futbol-banner.jpg', // Example path
+		mainImageUrl: '/images/disciplines/futbol-banner.jpg', 
 		quickLinks: [
 			{ title: 'Voley Infantil y Juvenil' },
 			{ title: 'Primera y Reserva' },
@@ -98,7 +98,7 @@ export const disciplines: Discipline[] = [
 		slug: 'patin',
 		description:
 			'El patin es el deporte rey y en nuestro club lo vivimos con pasión. Ofrecemos categorías para todas las edades, desde patin infantil hasta equipos mayores compitiendo en ligas locales. Nuestros entrenadores calificados se enfocan en el desarrollo técnico, táctico y físico de los jugadores, promoviendo siempre el juego limpio y el compañerismo.\n\nContamos con campos de entrenamiento bien mantenidos y un programa deportivo que busca no solo formar buenos patinistas, sino también grandes personas. Participamos activamente en campeonatos y torneos, buscando siempre alcanzar nuevos logros deportivos. ¡Vení a formar parte de nuestra historia patinística!',
-		mainImageUrl: '/images/disciplines/futbol-banner.jpg', // Example path
+		mainImageUrl: '/images/disciplines/futbol-banner.jpg', 
 		quickLinks: [
 			{ title: 'Patin Infantil y Juvenil' },
 			{ title: 'Primera y Reserva' },
@@ -112,7 +112,6 @@ export const disciplines: Discipline[] = [
 			{ name: 'Primera División' },
 		],
 		relatedNews: [
-			// Add example news links here later
 			{ id: '1', title: 'Unión se Posiciona Dentro de los 6 Equipos de Argentina', date: new Date(2023, 4, 7), slug: 'union-top-6', imageUrl: 'https://images.unsplash.com/photo-1493962853295-0fd70327578a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'Futbol' },
 			{ id: '2', title: 'Unión Dentro los Mejores 8 Equipos Argentinos de la Máxima Categoría', date: new Date(2023, 4, 4), slug: 'union-top-8', imageUrl: 'https://images.unsplash.com/photo-1493962853295-0fd70327578a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'Futbol' },
 			{ id: '3', title: 'El Hockey Sobre Patines - Categoría Infantil, se Encuentra en San Juan', date: new Date(2022, 11, 12), slug: 'hockey-infantil-san-juan', imageUrl: 'https://images.unsplash.com/photo-1493962853295-0fd70327578a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', category: 'Futbol' },
@@ -129,7 +128,7 @@ export const disciplines: Discipline[] = [
 		slug: 'natacion',
 		description:
 			'La natación es el deporte rey y en nuestro club lo vivimos con pasión. Ofrecemos categorías para todas las edades, desde natación infantil hasta equipos mayores compitiendo en ligas locales. Nuestros entrenadores calificados se enfocan en el desarrollo técnico, táctico y físico de los jugadores, promoviendo siempre el juego limpio y el compañerismo.\n\nContamos con campos de entrenamiento bien mantenidos y un programa deportivo que busca no solo formar buenos natadores, sino también grandes personas. Participamos activamente en campeonatos y torneos, buscando siempre alcanzar nuevos logros deportivos. ¡Vení a formar parte de nuestra historia natatoria!',
-		mainImageUrl: '/images/disciplines/futbol-banner.jpg', // Example path
+		mainImageUrl: '/images/disciplines/futbol-banner.jpg', 
 		quickLinks: [
 			{ title: 'Natación Infantil y Juvenil' },
 			{ title: 'Primera y Reserva' },
@@ -160,7 +159,7 @@ export const disciplines: Discipline[] = [
 		slug: 'padel',
 		description:
 			'El padel es el deporte rey y en nuestro club lo vivimos con pasión. Ofrecemos categorías para todas las edades, desde padel infantil hasta equipos mayores compitiendo en ligas locales. Nuestros entrenadores calificados se enfocan en el desarrollo técnico, táctico y físico de los jugadores, promoviendo siempre el juego limpio y el compañerismo.\n\nContamos con campos de entrenamiento bien mantenidos y un programa deportivo que busca no solo formar buenos padelistas, sino también grandes personas. Participamos activamente en campeonatos y torneos, buscando siempre alcanzar nuevos logros deportivos. ¡Vení a formar parte de nuestra historia padelística!',
-		mainImageUrl: '/images/disciplines/futbol-banner.jpg', // Example path
+		mainImageUrl: '/images/disciplines/futbol-banner.jpg', 
 		quickLinks: [
 			{ title: 'Padel Infantil y Juvenil' },
 			{ title: 'Primera y Reserva' },
