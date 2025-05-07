@@ -16,9 +16,22 @@ export const metadata: Metadata = {
 	title: 'Disciplinas',
   };
 
-export default async function DisciplinePage({ params }: { params: { slug: string } }) {
+// Definir el tipo para los parámetros resueltos
+interface DisciplinePageResolvedParams {
+	slug: string;
+}
+
+// Definir el tipo para las props de la página, con params como una Promise
+interface DisciplinePageProps {
+	params: Promise<DisciplinePageResolvedParams>;
+}
+
+export default async function DisciplinePage({ params }: DisciplinePageProps) {
+	// Resolver los parámetros
+	const resolvedParams = await params;
+
 	// Fetch data using the imported async function with await
-	const disciplineData = await getDisciplineBySlug(params.slug)
+	const disciplineData = await getDisciplineBySlug(resolvedParams.slug)
 
 	if (!disciplineData) {
 		// Use notFound for better 404 handling
