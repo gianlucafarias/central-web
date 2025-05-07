@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Footer from '@/components/Footer' 
 import { useState, useEffect, useRef } from 'react'; 
 import { Facebook, Instagram, Twitter } from "lucide-react";
+import Link from 'next/link';
 
 
 const imageUrl = '/fnz/fnzdia2.jpg' 
@@ -267,7 +268,7 @@ export default function FiestaNacionalDelZapallo() {
 							Reviví la Última Edición
 						</h2>
 						<div className="flex flex-col items-center justify-center gap-8 sm:flex-row sm:gap-12 md:gap-16">
-							<a
+							<Link
 								href="https://www.instagram.com/fiestanacionaldelzapallo/reel/DBAdnUIgSRk/?hl=es" 
 								target="_blank"
 								rel="noopener noreferrer"
@@ -282,8 +283,8 @@ export default function FiestaNacionalDelZapallo() {
                                      />
 								</div>
 								
-							</a>
-							<a
+							</Link>
+							<Link
 								href="https://www.instagram.com/fiestanacionaldelzapallo/reel/DBDVC7Xgbsc/?hl=es" 
 								target="_blank"
 								rel="noopener noreferrer"
@@ -297,8 +298,8 @@ export default function FiestaNacionalDelZapallo() {
                                         objectFit="cover"
                                      />
 								</div>
-							</a>
-							<a
+							</Link>
+							<Link
 								href="https://www.instagram.com/fiestanacionaldelzapallo/reel/DBFrKyOAnu4/?hl=es" 
 								target="_blank"
 								rel="noopener noreferrer"
@@ -312,7 +313,7 @@ export default function FiestaNacionalDelZapallo() {
                                         objectFit="cover"
                                      />
 								</div>
-							</a>
+							</Link>
 						</div>
 					</div>
 				</section>
@@ -475,7 +476,7 @@ export default function FiestaNacionalDelZapallo() {
 							ninguna novedad.
 						</p>
 						<div className="flex items-center justify-center space-x-6">
-							<a
+							<Link
 								href="#" 
 								target="_blank"
 								rel="noopener noreferrer"
@@ -483,8 +484,8 @@ export default function FiestaNacionalDelZapallo() {
 								aria-label="Facebook"
 							>
 								<Facebook className="h-10 w-10" />
-							</a>
-							<a
+							</Link>
+							<Link
 								href="#" 
 								target="_blank"
 								rel="noopener noreferrer"
@@ -493,8 +494,8 @@ export default function FiestaNacionalDelZapallo() {
 							>
 								<Instagram className="h-10 w-10" />
 								
-							</a>
-							<a
+							</Link>
+							<Link
 								href="#" 
 								target="_blank"
 								rel="noopener noreferrer"
@@ -503,7 +504,7 @@ export default function FiestaNacionalDelZapallo() {
 							>
 								<Twitter className="h-10 w-10" />
 								
-							</a>
+							</Link>
 						</div>
 					</div>
 				</section>

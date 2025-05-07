@@ -1,6 +1,7 @@
 import React from 'react'
 import { Discipline } from '@/types/discipline' 
 import { Mail, Phone } from 'lucide-react' 
+import Link from 'next/link'
 
 type ContactInfo = NonNullable<Discipline['contactInfo']>
 
@@ -23,12 +24,12 @@ const ContactItem = ({
 		<span className="mr-2 text-gray-400">{icon}</span>
 		<span className="font-medium mr-1 text-gray-200">{label}:</span>
 		{href ? (
-			<a
+			<Link
 				href={href}
 				className="text-[#ffdc00] hover:text-yellow-300 break-all transition-colors"
 			>
 				{value}
-			</a>
+			</Link>
 		) : (
 			<span className="text-gray-300 break-all">
 				{value}

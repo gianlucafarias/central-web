@@ -1,6 +1,7 @@
 import { Facebook, Instagram, Twitter, Youtube, Mail, MapPin, Phone } from "lucide-react";
 import SectionDivider from "./SectionDivider";
 import Image from "next/image";
+import Link from "next/link";
 const Footer = () => {
   return (
     
@@ -26,18 +27,18 @@ const Footer = () => {
               Club Central Argentino Olimpico, fundado en 1930. Uniendo pasión y tradición deportiva en Ceres, Santa Fe.
             </p>
             <div className="flex space-x-4">
-              <a target="_blank" href="https://www.facebook.com/centralceresoficial" className="text-white hover:text-club-primary transition-colors">
+              <Link target="_blank" href="https://www.facebook.com/centralceresoficial" className="text-white hover:text-club-primary transition-colors">
                 <Facebook size={20} />
-              </a>
-              <a target="_blank" href="https://www.instagram.com/centralceresoficial" className="text-white hover:text-club-primary transition-colors">
+              </Link>
+              <Link target="_blank" href="https://www.instagram.com/centralceresoficial" className="text-white hover:text-club-primary transition-colors">
                 <Instagram size={20} />
-              </a>
-              <a target="_blank" href="https://www.instagram.com/centralceresoficial" className="text-white hover:text-club-primary transition-colors">
+              </Link>
+              <Link target="_blank" href="https://www.instagram.com/centralceresoficial" className="text-white hover:text-club-primary transition-colors">
                 <Twitter size={20} />
-              </a>
-              <a target="_blank" href="https://www.instagram.com/centralceresoficial" className="text-white hover:text-club-primary transition-colors">
+              </Link>
+              <Link target="_blank" href="https://www.instagram.com/centralceresoficial" className="text-white hover:text-club-primary transition-colors">
                 <Youtube size={20} />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -45,19 +46,19 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-4">Enlaces Rápidos</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#inicio" className="text-white/80 hover:text-white transition-colors">Inicio</a>
+                <Link href="#inicio" className="text-white/80 hover:text-white transition-colors">Inicio</Link>
               </li>
               <li>
-                <a href="/el-club" className="text-white/80 hover:text-white transition-colors">El Club</a>
+                <Link href="/el-club" className="text-white/80 hover:text-white transition-colors">El Club</Link>
               </li>
               <li>
-                <a href="/el-club/comision-directiva" className="text-white/80 hover:text-white transition-colors">Comisión Directiva</a>
+                <Link href="/el-club/comision-directiva" className="text-white/80 hover:text-white transition-colors">Comisión Directiva</Link>
               </li>
               <li>
-                <a href="/el-club/instalaciones" className="text-white/80 hover:text-white transition-colors">Instalaciones</a>
+                <Link href="/el-club/instalaciones" className="text-white/80 hover:text-white transition-colors">Instalaciones</Link>
               </li>
               <li>
-                <a href="/register" className="text-white/80 hover:text-white transition-colors">Hacete Socio</a>
+                <Link href="/register" className="text-white/80 hover:text-white transition-colors">Hacete Socio</Link>
               </li>
             </ul>
           </div>
@@ -66,22 +67,22 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-4">Disciplinas</h3>
             <ul className="space-y-2">
               <li>
-                <a href="/disciplinas/futbol" className="text-white/80 hover:text-white transition-colors">Fútbol</a>
+                <Link href="/disciplinas/futbol" className="text-white/80 hover:text-white transition-colors">Fútbol</Link>
               </li>
               <li>
-                <a href="/disciplinas/basquet" className="text-white/80 hover:text-white transition-colors">Basquet</a>
+                <Link href="/disciplinas/basquet" className="text-white/80 hover:text-white transition-colors">Basquet</Link>
               </li>
               <li>
-                <a href="/disciplinas/voley" className="text-white/80 hover:text-white transition-colors">Voley</a>
+                <Link href="/disciplinas/voley" className="text-white/80 hover:text-white transition-colors">Voley</Link>
               </li>
               <li>
-                <a href="/disciplinas/natacion" className="text-white/80 hover:text-white transition-colors">Natación</a>
+                <Link href="/disciplinas/natacion" className="text-white/80 hover:text-white transition-colors">Natación</Link>
               </li>
               <li>
-                <a href="/disciplinas/patin" className="text-white/80 hover:text-white transition-colors">Patin</a>
+                <Link href="/disciplinas/patin" className="text-white/80 hover:text-white transition-colors">Patin</Link>
               </li>
               <li>
-                <a href="/disciplinas/padel" className="text-white/80 hover:text-white transition-colors">Padel</a>
+                <Link href="/disciplinas/padel" className="text-white/80 hover:text-white transition-colors">Padel</Link>
               </li>
             </ul>
           </div>
