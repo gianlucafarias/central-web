@@ -1,11 +1,6 @@
 import Link from 'next/link';
 import { 
-  Footprints, // Fútbol
-  Dribbble,   // Básquet (alternativa)
   Volleyball, 
-  Waves,      // Natación (alternativa)
-  Snowflake,  // Patín (alternativa Snowflake)
-  Disc3       // Pádel
 } from 'lucide-react';
 import FutbolIcon from '../public/disciplinas/FutbolIcon';
 import BasquetIcon from '../public/disciplinas/BasquetIcon';

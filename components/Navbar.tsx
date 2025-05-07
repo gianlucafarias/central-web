@@ -3,9 +3,8 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
-// Define navigation structure
 const navItems = [
   { name: "Inicio", href: "/" },
   {
@@ -36,14 +35,14 @@ const navItems = [
     name: "Fiesta Nacional del Zapallo",
     href: "/fiestanacionaldelzapallo",
   },
-  { name: "Contacto", href: "#contacto" }, // Assuming contact is a section on the homepage
+  { name: "Contacto", href: "#contacto" }, 
 ];
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null); // State for hover
-  const pathname = usePathname(); // Get current pathname
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null); 
+  const pathname = usePathname(); 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +62,6 @@ export default function Navbar() {
   return (
     <nav 
       className={`fixed left-0 right-0 z-50 transition-colors duration-300 ease-in-out bg-club-black backdrop-blur-sm ${ 
-        // Only make desktop transparent on homepage AND when not scrolled
         pathname === '/' && !isScrolled ? 'md:bg-transparent md:backdrop-blur-none' : '' 
       }`}
     >
@@ -75,8 +73,8 @@ export default function Navbar() {
               <Image 
                 src="/central-logo.png" 
                 alt="Logo" 
-                fill // Use fill for responsive images within relative parent
-                sizes="80px" // Provide sizes hint
+                fill 
+                sizes="80px" 
                 className="object-contain"
               />
             </div>
@@ -84,12 +82,9 @@ export default function Navbar() {
           </Link>
         </div>
         
-        {/* Wrapper for Navigation and Action Buttons */}
         <div className="hidden md:flex items-center space-x-6"> 
-          {/* Navigation Links - Desktop */} 
           <div className="flex items-center space-x-6 text-white text-sm uppercase">
             {navItems.map((item) => {
-              // Determine if the link is active
               const isActive = item.href
                 ? item.href === '/'
                   ? pathname === '/'
@@ -105,12 +100,10 @@ export default function Navbar() {
                 >
                   <Link 
                     href={item.href || '#'} 
-                    // Apply active style conditionally
                     className={`font-mono py-4 transition-colors ${isActive ? 'text-[#ffdc00]' : 'text-white hover:text-[#ffdc00]'}`}
                   >
                     {item.name}
                   </Link>
-                  {/* Dropdown Menu */} 
                   {item.subItems && hoveredItem === item.name && (
                     <div className="absolute left-0 top-full mt-3 w-48 bg-black/90 rounded-md shadow-lg py-2 z-50">
                       {item.subItems.map((subItem) => (
@@ -118,7 +111,7 @@ export default function Navbar() {
                           key={subItem.name} 
                           href={subItem.href} 
                           className="block px-4 py-2 text-sm text-white hover:bg-gray-700/50 hover:text-[#ffdc00] transition-colors font-mono"
-                          onClick={() => setHoveredItem(null)} // Close menu on click
+                          onClick={() => setHoveredItem(null)} 
                         >
                           {subItem.name}
                         </Link>
@@ -130,7 +123,6 @@ export default function Navbar() {
             })}
           </div>
           
-          {/* Action Buttons - Desktop */} 
           <div className="flex items-center space-x-4">
             <Link href="/register" className="bg-[#ffdc00] text-black font-semibold py-2 px-6 rounded-full hover:bg-yellow-500 transition-colors text-sm cursor-pointer font-mono">
               REGISTRARME
@@ -141,7 +133,6 @@ export default function Navbar() {
           </div>
         </div>
         
-        {/* Mobile Menu Button */}
         <button 
           className="md:hidden absolute right-3 top-1/2 -translate-y-1/2" 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -152,13 +143,10 @@ export default function Navbar() {
         </button>
       </div>
       
-      {/* Mobile Menu Panel */} 
       {isMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 py-4 px-6">
           <div className="flex flex-col space-y-3 text-sm uppercase">
-            {/* TODO: Add mobile submenu logic */} 
             {navItems.map((item) => {
-              // Determine if the link is active
               const isActive = item.href
                 ? item.href === '/'
                   ? pathname === '/'
@@ -168,7 +156,6 @@ export default function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href || '#'}
-                  // Apply active style conditionally
                   className={`py-2 font-mono transition-colors ${isActive ? 'text-[#ffdc00]' : 'text-white hover:text-[#ffdc00]'}`}
                   onClick={() => setIsMenuOpen(false)}
                 >

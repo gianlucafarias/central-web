@@ -1,12 +1,7 @@
 'use client'
 
-// Quitar useState si ya no se usa
-// import { useState } from 'react'; 
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
-// Quitar import Calendar
-// import { Calendar } from '../components/ui/calendar';
-// Reimportar Tabs
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';

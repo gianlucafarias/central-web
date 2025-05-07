@@ -1,11 +1,7 @@
-import { Calendar, User } from "lucide-react";
 import { Button } from "../components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
 import Image from "next/image";
 import NewsCard from "./NewsCard";
-import { getAllNews, NewsItem } from '@/lib/news';
+import { getAllNews } from '@/lib/news';
 import Link from 'next/link';
 
 async function NewsSectionContent() {

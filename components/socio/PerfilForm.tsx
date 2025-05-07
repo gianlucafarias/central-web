@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -18,7 +17,7 @@ import { perfilFormSchema, type PerfilFormData } from "@/app/socio/perfil/schema
 import { useState } from "react";
 
 interface PerfilFormProps {
-	initialData: PerfilFormData; // Solo los datos editables
+	initialData: PerfilFormData; 
 	onSubmit: (data: PerfilFormData) => Promise<{ success: boolean; message: string } | void>;
 	onCancel: () => void;
 }
@@ -39,14 +38,12 @@ export default function PerfilForm({ initialData, onSubmit, onCancel }: PerfilFo
 		if (result && !result.success) {
 			setSubmitError(result.message);
 		}
-		// Si hay éxito, la página PerfilPage se encargará de cambiar el estado isEditing
 		setIsSubmitting(false);
 	}
 
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-8">
-				{/* Datos Personales Editables */} 
 				<Card className="pt-5 pb-5">
 					<CardHeader>
 						<CardTitle>Datos Personales</CardTitle>
@@ -81,7 +78,6 @@ export default function PerfilForm({ initialData, onSubmit, onCancel }: PerfilFo
 					</CardContent>
 				</Card>
 
-				{/* Datos Contacto Editables */} 
 				<Card className="pt-5 pb-5">
 					<CardHeader>
 						<CardTitle>Datos de Contacto</CardTitle>
@@ -103,13 +99,11 @@ export default function PerfilForm({ initialData, onSubmit, onCancel }: PerfilFo
 					</CardContent>
 				</Card>
 
-				{/* Dirección Editable */} 
 				<Card className="pt-5 pb-5">
 					<CardHeader>
 						<CardTitle>Dirección</CardTitle>
 					</CardHeader>
 					<CardContent className="space-y-4">
-						{/* Campos de dirección anidados */} 
 						<FormField control={form.control} name="direccion.calle" render={({ field }) => (<FormItem><FormLabel>Calle</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>)} />
 						<FormField control={form.control} name="direccion.numero" render={({ field }) => (<FormItem><FormLabel>Número</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>)} />
 						<FormField control={form.control} name="direccion.pisoDepto" render={({ field }) => (<FormItem><FormLabel>Piso / Depto.</FormLabel><FormControl><Input {...field} /></FormControl><FormMessage /></FormItem>)} />

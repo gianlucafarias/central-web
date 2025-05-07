@@ -2,14 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils' // Asumiendo que tienes la utilidad cn de Shadcn
+import { cn } from '@/lib/utils' 
 
-// Iconos (ejemplo, necesitarías instalar lucide-react: npm install lucide-react)
-// import { LayoutDashboard, User, CreditCard, Users, IdCard } from 'lucide-react'
 
 const sidebarNavItems = [
-	{ title: 'Inicio', href: '/socio/dashboard' /*, icon: LayoutDashboard */ },
-	{ title: 'Mi Perfil', href: '/socio/perfil' /*, icon: User */ },
+	{ title: 'Inicio', href: '/socio/dashboard' },
+	{ title: 'Mi Perfil', href: '/socio/perfil'  },
 	{ title: 'Pagos', href: '/socio/pagos' /*, icon: CreditCard */ },
 	{ title: 'Grupo Familiar', href: '/socio/familiares' /*, icon: Users */ },
 	{ title: 'Carnet Digital', href: '/socio/carnet' /*, icon: IdCard */ },
@@ -22,7 +20,6 @@ export default function Sidebar() {
 		<nav className="flex flex-col space-y-2">
 			{sidebarNavItems.map((item) => {
 				const isActive = pathname === item.href
-				// const Icon = item.icon // Descomentar si usas iconos
 				return (
 					<Link
 						key={item.href}

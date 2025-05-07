@@ -15,7 +15,6 @@ interface FamiliarFormProps {
 	onCancel: () => void;
 }
 
-// Opciones de ejemplo para parentesco
 const opcionesParentesco = [
 	{ value: "conyuge", label: "Cónyuge" },
 	{ value: "hijo/a", label: "Hijo/a" },

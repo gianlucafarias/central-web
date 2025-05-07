@@ -1,4 +1,4 @@
-import { User, Calendar } from 'lucide-react'
+import { Calendar } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from './ui/card'
 import { Button } from './ui/button'
 import { es } from 'date-fns/locale'
