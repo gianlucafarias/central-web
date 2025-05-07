@@ -7,18 +7,23 @@ import { getNewsBySlug, getAllNewsSlugs, formatDate, slugify, getAllNews } from 
 import Footer from '@/components/Footer'
 import Link from 'next/link' // Asegurarse de que Link esté importado
 
+// Definir el tipo para los parámetros resueltos
+interface NewsArticlePageResolvedParams {
+	slug: string;
+}
+
+// Definir el tipo para las props de la página, con params como una Promise
 interface NewsArticlePageProps {
-	params: {
-		slug: string
-	}
+	params: Promise<NewsArticlePageResolvedParams>; // <--- CAMBIO AQUÍ
 }
 
 // Generar metadatos dinámicos
 export async function generateMetadata(
-	{ params }: NewsArticlePageProps,
+	{ params }: NewsArticlePageProps, // <--- USA LA INTERFAZ ACTUALIZADA
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
-	const newsItem = await getNewsBySlug(params.slug)
+	const resolvedParams = await params; // <--- AWAIT PARAMS
+	const newsItem = await getNewsBySlug(resolvedParams.slug) // <--- USA resolvedParams.slug
 
 	if (!newsItem) {
 		return {
@@ -36,9 +41,10 @@ export async function generateMetadata(
 }
 
 export default async function NewsArticlePage({
-	params,
+	params, // <--- USA LA INTERFAZ ACTUALIZADA (implícitamente)
 }: NewsArticlePageProps) {
-	const newsItem = await getNewsBySlug(params.slug)
+	const resolvedParams = await params; // <--- AWAIT PARAMS
+	const newsItem = await getNewsBySlug(resolvedParams.slug) // <--- USA resolvedParams.slug
 	// Para el sidebar, podríamos querer una lista de todas las categorías o las más recientes
 	// Aquí obtendremos todas las noticias para extraer las categorías únicas y las noticias recientes
 	const allNews = await getAllNews() 
