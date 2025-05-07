@@ -6,7 +6,7 @@ import {  QRCodeSVG } from 'qrcode.react';
 import { Button } from "@/components/ui/button";
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import CarnetPDF from './CarnetPDF';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 interface MiembroData {
   id: string; 
