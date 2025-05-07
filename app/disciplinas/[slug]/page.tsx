@@ -16,13 +16,7 @@ export const metadata: Metadata = {
 	title: 'Disciplinas',
   };
 
-interface DisciplinePageProps {
-	params: {
-		slug: string
-	}
-}
-
-export default async function DisciplinePage({ params }: DisciplinePageProps) {
+export default async function DisciplinePage({ params }: { params: { slug: string } }) {
 	// Fetch data using the imported async function with await
 	const disciplineData = await getDisciplineBySlug(params.slug)
 
