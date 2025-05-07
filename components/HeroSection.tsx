@@ -33,36 +33,30 @@ export default function HeroSection() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-black">
-      {/* Loader */}
-      {isVideoLoading && (
-        <div className="absolute inset-0 flex items-center justify-center z-30 bg-black">
-          <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-[#ffdc00]"></div>
-        </div>
-      )}
-
-      {/* Degradado - Ahora como hermano, y con su propio z-index y transición */}
       <div 
-        className={`absolute inset-0 bg-gradient-to-b from-black/70 to-yellow-500/60 z-1 transition-opacity duration-1000 ${isVideoLoading ? 'opacity-0' : 'opacity-100'}`}
+        className={`absolute inset-0 flex items-center justify-center z-30 bg-black transition-opacity duration-500 ease-in-out ${isVideoLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      >
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-[#ffdc00]"></div>
+      </div>
+
+      <div 
+        className="absolute inset-0 bg-gradient-to-b from-black/70 to-yellow-500/60 z-1"
       ></div>
 
-      {/* Contenedor del Video - Controla la opacidad del video */}
-      {/* El div que antes contenía el degradado y el video, ahora solo contiene el video y tiene z-0 */}
-      <div className={`absolute inset-0 z-0 transition-opacity duration-1000 ${isVideoLoading ? 'opacity-0' : 'opacity-100'}`}>
-        {/* El div interno del degradado (que tenía z-10) se eliminó de aquí, ya que el degradado ahora es un hermano. */}
+      <div className="absolute inset-0 z-0">
         <video
           ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover" // z-0 anterior eliminado, ya no es necesario aquí
+          className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/ccaodrone-optimized.mp4" type="video/mp4" />
           Tu navegador no soporta videos HTML5.
         </video>
       </div>
 
-      {/* Contenido de Texto - Encima de todo */}
       <div className={`relative z-20 h-full flex flex-col justify-center transition-opacity duration-1000 delay-300 ${isVideoLoading ? 'opacity-0' : 'opacity-100'}`}>
         <div className="container px-6 max-w-screen-xl mx-auto">
           <div className="">
