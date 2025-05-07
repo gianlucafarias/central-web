@@ -1,14 +1,10 @@
-// Podría ser Server Component si los datos vienen del servidor inicialmente
-// 'use client'; 
 
-// import { useState } from 'react'; // No se necesita estado aquí
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
-import Link from 'next/link'; // Importar Link
-// No se necesita PerfilForm ni actions/types aquí
+import Link from 'next/link'; 
 
-// TODO: Obtener datos reales del socio (desde el servidor o props)
+
 const perfilData = {
 	nombreCompleto: "Juan Ignacio Pérez",
 	dni: "30.123.456",
@@ -37,20 +33,16 @@ function DisplayData({ label, value }: { label: string; value?: string | null })
 }
 
 export default function PerfilPage() {
-	// Ya no necesita estado isEditing ni la función handleFormSubmit
-	// Tampoco necesita preparar formInitialData
 
 	return (
 		<div className="space-y-6">
 			<div className="flex justify-between items-start">
 				<h1 className="text-3xl font-bold text-gray-800 dark:text-white">Mi Perfil</h1>
-				{/* Botón ahora es un Link a la página de edición */}
 				<Button asChild>
 					<Link href="/socio/perfil/editar">Editar Perfil</Link>
 				</Button>
 			</div>
 
-			{/* Vista de solo lectura */}
 			<Card className="flex flex-col pt-5 pb-5">
 				<CardHeader>
 					<CardTitle>Datos Personales</CardTitle>
@@ -64,7 +56,6 @@ export default function PerfilPage() {
 							height={128}
 							className="rounded-full aspect-square object-cover border"
 						/>
-						{/* El botón Cambiar Foto podría ir a otra página dedicada o abrir un modal */}
 						<Button variant="outline" size="sm" disabled>Cambiar Foto</Button>
 					</div>
 					<div className="space-y-4 md:col-span-2">

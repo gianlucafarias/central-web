@@ -25,7 +25,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
 export default function CarnetDisplay({ miembro }: CarnetDisplayProps) {
   const qrUrl = `${BASE_URL}/verificar?id=${miembro.id}`;
   const [qrDataURL, setQrDataURL] = useState<string>('');
-  const qrCanvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = document.querySelector(`#qr-canvas-${miembro.id}`) as HTMLCanvasElement;
