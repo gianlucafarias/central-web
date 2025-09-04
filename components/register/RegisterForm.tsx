@@ -1,55 +1,194 @@
+'use client'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { registerSchema } from "@/lib/validations/auth"
+import  { z } from "zod"
+
+interface FieldError {
+  field: string
+  message: string
+}
 
 export function RegisterForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
+  const [error, setError] = useState<string>("")
+  const [loading, setLoading] = useState(false)
+  const [fieldErrors, setFieldErrors] = useState<FieldError[]>([])
+
+  const router = useRouter()
+
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true)
+    setError("")
+    setFieldErrors([])
+
+    const formData = new FormData(e.target as HTMLFormElement)
+    const data = {
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
+      dni: formData.get("dni") as string,
+      phone: formData.get("phone") as string,
+      email: formData.get("email") as string,
+      birthdate: formData.get("birthdate") as string,
+      password: formData.get("password") as string,
+      confirmPassword: formData.get("confirmPassword") as string,
+    }
+
+    console.log(data)
+    
+
+    try {
+      const validatedData = registerSchema.parse(data)
+      
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validatedData),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        if (result.details) {
+          setFieldErrors(result.details)
+        } else {
+          setError(result.error || "Error en el registro")
+        }
+        return
+      }
+
+      // Registro exitoso
+      setError("")
+      setFieldErrors([])
+      
+      // Redirigir al login con mensaje de éxito
+      router.push("/login?message=Registro exitoso. Tu cuenta está pendiente de validación.")
+      
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errors = error.errors.map(err => ({
+          field: err.path.join('.'),
+          message: err.message
+        }))
+        setFieldErrors(errors)
+      } else {
+        setError("Error inesperado. Intenta nuevamente.")
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form onSubmit={handleSubmit} className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Registrate en el Club</h1>
         <p className="text-balance text-sm text-muted-foreground">
           Crea tu cuenta para acceder a los servicios del Club
         </p>
       </div>
+
+      {fieldErrors.length > 0 && (
+        <div className="space-y-2">
+          {fieldErrors.map((error) => (
+            <p key={error.field} className="text-destructive text-sm">
+              {error.message}
+            </p>
+          ))}
+        </div>
+      )}
+
+
       <div className="grid gap-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <Label htmlFor="name">Nombre</Label>
-            <Input id="name" type="text" placeholder="Juan" required />
+            <Label htmlFor="firstName">Nombre</Label>
+            <Input id="firstName" name="firstName" type="text" placeholder="Juan" required />
+            {fieldErrors.find(error => error.field === "firstName") && (
+              <p className="text-destructive text-sm">
+                {fieldErrors.find(error => error.field === "firstName")?.message}
+              </p>
+            )}
           </div>
           <div className="space-y-1">
-            <Label htmlFor="lastname">Apellido</Label>
-            <Input id="lastname" type="text" placeholder="Perez" required />
+            <Label htmlFor="lastName">Apellido</Label>
+            <Input id="lastName" name="lastName" type="text" placeholder="Perez" required />
+            {fieldErrors.find(error => error.field === "lastName") && (
+              <p className="text-destructive text-sm">
+                {fieldErrors.find(error => error.field === "lastName")?.message}
+              </p>
+            )}
           </div>
         </div>
         <div className="grid gap-2">
             <Label htmlFor="dni">DNI</Label>
-            <Input id="dni" type="number" placeholder="12345678" required />
+            <Input id="dni" name="dni" type="number" placeholder="12345678" required />
+            {fieldErrors.find(error => error.field === "dni") && (
+              <p className="text-destructive text-sm">
+                {fieldErrors.find(error => error.field === "dni")?.message}
+              </p>
+            )}
         </div>
         <div className="grid gap-2">
             <Label htmlFor="email">Correo electrónico</Label>
-            <Input id="email" type="email" placeholder="m@example.com" required />
+            <Input id="email" name="email" type="email" placeholder="m@example.com" required />
+            {fieldErrors.find(error => error.field === "email") && (
+              <p className="text-destructive text-sm">
+                {fieldErrors.find(error => error.field === "email")?.message}
+              </p>
+            )}
+        </div>
+        <div className="grid gap-2">
+            <Label htmlFor="phone">Teléfono</Label>
+            <Input id="phone" name="phone" type="tel" placeholder="1234567890" required />
+            {fieldErrors.find(error => error.field === "phone") && (
+              <p className="text-destructive text-sm">
+                {fieldErrors.find(error => error.field === "phone")?.message}
+              </p>
+            )}
         </div>
         <div className="grid gap-2">
             <Label htmlFor="birthdate">Fecha de nacimiento</Label>
-            <Input id="birthdate" type="date" required />
+            <Input id="birthdate" name="birthdate" type="date" required />
+            {fieldErrors.find(error => error.field === "birthdate") && (
+              <p className="text-destructive text-sm">
+                {fieldErrors.find(error => error.field === "birthdate")?.message}
+              </p>
+            )}
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">Contraseña</Label>
           </div>
-          <Input id="password" type="password" required />
+          <Input id="password" name="password" type="password" required />
+          {fieldErrors.find(error => error.field === "password") && (
+            <p className="text-destructive text-sm">
+              {fieldErrors.find(error => error.field === "password")?.message}
+            </p>
+          )}
         </div>
         <div className="grid gap-2">
             <Label htmlFor="password">Confirmar contraseña</Label>
-            <Input id="password" type="password" placeholder="m@example.com" required />
+            <Input id="password" name="confirmPassword" type="password" placeholder="Confirmar contraseña" required />
+            {fieldErrors.find(error => error.field === "confirmPassword") && (
+              <p className="text-destructive text-sm">
+                {fieldErrors.find(error => error.field === "confirmPassword")?.message}
+              </p>
+            )}
         </div>
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? "Registrando..." : "Registrarme"}
           Registrarme
         </Button>
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">

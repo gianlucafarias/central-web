@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { Calendar, User, Tag } from 'lucide-react' 
 import { getNewsBySlug, getAllNewsSlugs, formatDate, slugify, getAllNews } from '@/lib/news'
 import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 import Link from 'next/link' 
 
 interface NewsArticlePageResolvedParams {
@@ -57,6 +58,7 @@ export default async function NewsArticlePage({
 
 	return (
 		<div>
+			<Navbar />
 			<article className='bg-slate-100 px-4 py-36 md:py-20 lg:py-34'>
 				<div className='container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12'>
 					<div className='lg:col-span-2 w-full bg-white rounded-xl shadow-lg p-6 md:p-8 lg:p-10'>
@@ -115,13 +117,16 @@ export default async function NewsArticlePage({
 					</div>
 
 					<aside className='lg:col-span-1 w-full space-y-6 lg:sticky lg:top-28 h-fit'>
-						<div className='rounded-xl space-y-4'>
-							<div className='bg-gray-200 h-48 flex items-center justify-center rounded-md'>
-								<p className='text-gray-500'>Publicidad 1</p>
-							</div>
+						<div className='bg-white rounded-xl shadow-lg p-6 space-y-4'>
+						<div className='h-48 flex items-center justify-center rounded-md'>
 
-							<div className='bg-gray-200 h-48 flex items-center justify-center rounded-md'>
-								<p className='text-gray-500'>Publicidad 2</p>
+						<Image src={'/sponsors/panaderia-independencia.jpeg'} alt='Publicidad 1' width={500} height={300} />
+						</div>
+							<div className='h-48 flex items-center justify-center rounded-md'>
+								<Image src={'/sponsors/ing-viviana-vaira.jpeg'} alt='Publicidad 2' width={500} height={300} />
+							</div>
+							<div className='flex items-center justify-center rounded-md'>
+								<Image src={'/sponsors/maza-hnos.png'} alt='Publicidad 2' width={500} height={300} />
 							</div>
 						</div>
 

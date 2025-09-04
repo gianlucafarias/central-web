@@ -116,7 +116,7 @@ export default function HeroSection() {
           
         </div>
         
-        <div className="absolute bottom-10 md:bottom-20 left-1/2 transform -translate-x-1/2 hidden md:flex flex-col items-center animate-bounce">
+        <div onClick={() => window.location.href = '#sponsors'} className="absolute bottom-10 md:bottom-20 left-1/2 transform -translate-x-1/2 hidden md:flex flex-col items-center animate-bounce">
           <span className="text-white text-xs mb-2">Desplaza para ver más</span>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />

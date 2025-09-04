@@ -8,6 +8,7 @@ import {
 } from '@/lib/news'
 import NewsCard from '@/components/NewsCard' 
 import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 import ClubHeroSection from '@/components/el-club.tsx/ClubHeroSection' 
 
 interface CategoryPageResolvedParams {
@@ -50,6 +51,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
     return (
         <div>
+            <Navbar />
             <ClubHeroSection title={`Noticias sobre ${categoryName}`} />
 
             <div className='bg-slate-100 px-4 py-12 md:py-16 lg:py-20 -mt-10 pt-20 mb-16'>

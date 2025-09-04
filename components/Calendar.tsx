@@ -1,12 +1,13 @@
 'use client'
 
+import { useState, useEffect } from 'react';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Event, events } from '@/lib/events';
-
+import { Event } from '@/lib/events';
+import Image from 'next/image';
 
 
 
@@ -17,9 +18,9 @@ const EventCard = ({ event, isPast = false }: { event: Event, isPast?: boolean }
         <div className="flex items-stretch"> 
           <div className="bg-club-primary text-club-secondary p-4 flex flex-col items-center justify-center text-center min-w-[80px]"> 
             <CalendarIcon className="h-5 w-5 mb-1 opacity-80" />
-            <p className="text-xs font-medium uppercase tracking-wide">{format(event.date, 'LLL', { locale: es })}</p> 
-            <p className="text-3xl font-bold leading-none">{format(event.date, 'd')}</p> 
-            <p className="text-xs opacity-80">{format(event.date, 'yyyy')}</p> 
+            <p className="text-xs font-medium uppercase tracking-wide">{format(event.eventDate, 'LLL', { locale: es })}</p> 
+            <p className="text-3xl font-bold leading-none">{format(event.eventDate, 'd')}</p> 
+            <p className="text-xs opacity-80">{format(event.eventDate, 'yyyy')}</p> 
           </div>
           
           <div className="flex-1 p-4">
@@ -28,7 +29,7 @@ const EventCard = ({ event, isPast = false }: { event: Event, isPast?: boolean }
             
             <div className="flex flex-col sm:flex-row sm:items-center gap-y-1 gap-x-4 text-sm text-gray-600 mb-3">
               <div>
-                <span className="font-medium text-gray-800">Hora:</span> {event.time}
+                <span className="font-medium text-gray-800">Hora:</span> {event.startTime}
               </div>
               <div>
                 <span className="font-medium text-gray-800">Lugar:</span> {event.location}
@@ -55,7 +56,62 @@ const EventCard = ({ event, isPast = false }: { event: Event, isPast?: boolean }
 };
 
 const CalendarSection = () => {
-  const maxEventsToShow = 4; 
+  const maxEventsToShow = 4;
+  const [events, setEvents] = useState<{ upcoming: Event[]; past: Event[] }>({ upcoming: [], past: [] });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const [upcomingResponse, pastResponse] = await Promise.all([
+          fetch('/api/eventos?type=upcoming'),
+          fetch('/api/eventos?type=past')
+        ]);
+
+        if (upcomingResponse.ok && pastResponse.ok) {
+          const upcoming = await upcomingResponse.json();
+          const past = await pastResponse.json();
+          
+          setEvents({
+            upcoming: upcoming.map((event: any) => ({
+              ...event,
+              eventDate: new Date(event.eventDate),
+              createdAt: new Date(event.createdAt),
+              updatedAt: new Date(event.updatedAt),
+              registrationDeadline: event.registrationDeadline ? new Date(event.registrationDeadline) : undefined,
+            })),
+            past: past.map((event: any) => ({
+              ...event,
+              eventDate: new Date(event.eventDate),
+              createdAt: new Date(event.createdAt),
+              updatedAt: new Date(event.updatedAt),
+              registrationDeadline: event.registrationDeadline ? new Date(event.registrationDeadline) : undefined,
+            }))
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="calendario" className="section-padding bg-white">
+        <div className="container mx-auto px-4 lg:grid lg:grid-cols-3 lg:gap-8">
+          <div className="lg:col-span-2">
+            <div className="text-center py-12">
+              <div className="text-lg">Cargando eventos...</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="calendario" className="section-padding bg-white">
@@ -88,40 +144,52 @@ const CalendarSection = () => {
               
               <TabsContent value="upcoming">
                 {events.upcoming.length > 0 ? (
-                  events.upcoming
-                    .sort((a, b) => a.date.getTime() - b.date.getTime())
-                    .slice(0, maxEventsToShow)
-                    .map(event => (
-                      <EventCard key={event.id} event={event} />
-                  ))
+                  <>
+                    {events.upcoming
+                      .sort((a, b) => a.eventDate.getTime() - b.eventDate.getTime())
+                      .slice(0, maxEventsToShow)
+                      .map(event => (
+                        <EventCard key={event.id} event={event} />
+                    ))}
+                    {events.upcoming.length > maxEventsToShow && (
+                      <div className="text-center mt-6">
+                        <button className="text-club-primary font-semibold hover:underline">
+                          Ver todos los próximos eventos
+                        </button>
+                      </div>
+                    )}
+                  </>
                 ) : (
-                  <p className="text-center text-gray-500 py-6">No hay próximos eventos.</p>
-                )}
-                {events.upcoming.length > maxEventsToShow && (
-                  <div className="text-center mt-6">
-                    <button className="text-club-primary font-semibold hover:underline">
-                      Ver todos los próximos eventos
-                    </button>
+                  <div className="text-center py-12">
+                    <CalendarIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                    <p className="text-lg font-medium text-gray-900 mb-2">No hay próximos eventos</p>
+                    <p className="text-gray-500">Próximamente se publicarán nuevos eventos y actividades del club.</p>
                   </div>
                 )}
               </TabsContent>
               
               <TabsContent value="past">
-                 {events.past.length > 0 ? (
-                  events.past
-                    .sort((a, b) => b.date.getTime() - a.date.getTime())
-                    .slice(0, maxEventsToShow)
-                    .map(event => (
-                      <EventCard key={event.id} event={event} isPast={true} />
-                  ))
+                {events.past.length > 0 ? (
+                  <>
+                    {events.past
+                      .sort((a, b) => b.eventDate.getTime() - a.eventDate.getTime())
+                      .slice(0, maxEventsToShow)
+                      .map(event => (
+                        <EventCard key={event.id} event={event} isPast={true} />
+                    ))}
+                    {events.past.length > maxEventsToShow && (
+                      <div className="text-center mt-6">
+                        <button className="text-club-primary font-semibold hover:underline">
+                          Ver todos los eventos pasados
+                        </button>
+                      </div>
+                    )}
+                  </>
                 ) : (
-                  <p className="text-center text-gray-500 py-6">No hay eventos pasados.</p>
-                )}
-                {events.past.length > maxEventsToShow && (
-                  <div className="text-center mt-6">
-                    <button className="text-club-primary font-semibold hover:underline">
-                      Ver todos los eventos pasados
-                    </button>
+                  <div className="text-center py-12">
+                    <CalendarIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                    <p className="text-lg font-medium text-gray-900 mb-2">No hay eventos pasados</p>
+                    <p className="text-gray-500">Los eventos pasados aparecerán aquí una vez que se completen.</p>
                   </div>
                 )}
               </TabsContent>
@@ -129,15 +197,19 @@ const CalendarSection = () => {
           </div>
         </div>
 
-        <aside className="lg:col-span-1 mt-12 lg:mt-0">
-          <div className="sticky top-24 p-4 ">
-            <div className="h-64 bg-gray-300 flex items-center justify-center rounded">
-              <p className="text-gray-500">Publicidad 1</p>
-            </div>
-            <div className="h-64 bg-gray-300 flex items-center justify-center rounded mt-4">
-              <p className="text-gray-500">Publicidad 2</p>
-            </div>
-          </div>
+        <aside className='lg:col-span-1 w-full space-y-6 lg:sticky lg:top-28 h-fit'>
+						<div className='bg-white rounded-xl shadow-lg p-6 space-y-4'>
+						<div className='h-48 flex items-center justify-center rounded-md'>
+
+						<Image src={'/sponsors/panaderia-independencia.jpeg'} alt='Publicidad 1' width={500} height={300} />
+						</div>
+							<div className='h-48 flex items-center justify-center rounded-md'>
+								<Image src={'/sponsors/ing-viviana-vaira.jpeg'} alt='Publicidad 2' width={500} height={300} />
+							</div>
+							<div className='flex items-center justify-center rounded-md'>
+								<Image src={'/sponsors/maza-hnos.png'} alt='Publicidad 2' width={500} height={300} />
+							</div>
+						</div>
         </aside>
         
       </div>

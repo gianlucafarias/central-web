@@ -8,6 +8,7 @@ import DisciplineSpecificContact from '@/components/disciplines/discipline-speci
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 
 export const metadata: Metadata = {
 	title: 'Disciplinas',
@@ -32,6 +33,7 @@ export default async function DisciplinePage({ params }: DisciplinePageProps) {
 
 	return (
 		<div>
+			<Navbar />
 			<div className="container mx-auto px-4 pt-48 pb-12 md:pb-16 mb-16">
 				<h1 className="text-4xl md:text-5xl font-bold mb-6 md:mb-8 text-center md:text-left">
 					{disciplineData.name}

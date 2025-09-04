@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 
 export interface NewsItem {
-	id: number | string 
+	id: string 
 	slug: string 
 	title: string
 	excerpt?: string    
@@ -11,12 +11,16 @@ export interface NewsItem {
 	author?: string     
 	imageUrl: string
 	category: string
+	status?: 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
+	viewCount?: number
+	createdAt?: Date
+	updatedAt?: Date
 }
 
 // Datos de ejemplo actualizados
 const newsItemsData: NewsItem[] = [
 	{
-		id: 1,
+		id: 'news_1',
 		slug: 'victoria-decisiva-lrcf',
 		title: 'Victoria decisiva para pelear la Liga Regional Ceresina',
 		excerpt:
@@ -41,9 +45,13 @@ En sub 23, el partido terminò 0 a 0, y ambos siguen sin ganar en el torneo.
 		imageUrl:
 			'/noticias/central-vs-ferro.webp',
 		category: 'Futbol',
+		status: 'PUBLISHED',
+		viewCount: 1205,
+		createdAt: new Date(2025, 3, 20),
+		updatedAt: new Date(2025, 3, 20),
 	},
 	{
-		id: 2,
+		id: 'news_2',
 		slug: 'segunda-victoria-consecutiva-de-central',
 		title: 'Segunda victoria consecutiva de Central',
 		excerpt:
@@ -66,9 +74,13 @@ Fuente: Adrián Tavella
 		imageUrl:
 			'/noticias/central-basquet.jpg',
 		category: 'Basquet',
+		status: 'PUBLISHED',
+		viewCount: 890,
+		createdAt: new Date(2025, 3, 15),
+		updatedAt: new Date(2025, 3, 15),
 	},
 	{
-		id: 3,
+		id: 'news_3',
 		slug: 'entrega-luminarias-led-estadio-adolfo-carlos-maero',
 		title: 'Se entregaron luminarias led para el estadio Adolfo Carlos Maero de Central',
 		excerpt:
@@ -99,6 +111,10 @@ El Club agradece de antemano la comprensión y colaboración de todos sus miembr
 		imageUrl:
 			'/noticias/luminarias-led-felipe.webp',
 		category: 'Infraestructura',
+		status: 'PUBLISHED',
+		viewCount: 654,
+		createdAt: new Date(2025, 3, 10),
+		updatedAt: new Date(2025, 3, 10),
 	},
 ]
 

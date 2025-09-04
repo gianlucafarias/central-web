@@ -344,7 +344,6 @@ const MembershipSection = () => {
                   {currentStep === TOTAL_STEPS + 1 && (
                     <div className="text-center py-8">
                       <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-                      {/* El título ya se maneja arriba con stepConfirmationTitle */}
                       <p className="text-gray-600 mb-1">
                         Hemos enviado un correo de confirmación a:
                       </p>

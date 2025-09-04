@@ -1,85 +1,189 @@
+export type EventType = 'MATCH' | 'TOURNAMENT' | 'TRAINING' | 'SOCIAL' | 'MEETING' | 'OTHER'
+export type EventStatus = 'SCHEDULED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED' | 'POSTPONED'
+
 export interface Event {
-    id: number;
+    id: string;
     title: string;
-    type: string;
-    date: Date;
-    time: string;
+    description?: string;
+    type: EventType;
+    status: EventStatus;
+    eventDate: Date;
+    startTime?: string;
+    endTime?: string;
     location: string;
-    result?: string;
+    address?: string;
+      isPublic: boolean;
+  registrationRequired: boolean;
+    registrationDeadline?: Date;
+    
+    // Campos para partidos/deportes
     homeTeam?: string;
     awayTeam?: string;
+    result?: string;
+    score?: string;
+    
+    // Campos adicionales
+    imageUrl?: string;
+    externalUrl?: string;
+    notes?: string;
+    
+    // Timestamps
+    createdAt: Date;
+    updatedAt: Date;
+    
+    // Relación opcional con disciplina
+    disciplineId?: string;
   }
   
-  export const events: { upcoming: Event[]; past: Event[] } = {
-    upcoming: [
-      {
-        id: 1,
-        title: "Cena A Beneficio",
-        type: "Futbol Inferiores",
-        date: new Date(2025, 4, 16),
-        time: "21:00",
-        location: "Salon de Patin",
+// Función para obtener todos los eventos
+export async function getAllEvents(): Promise<Event[]> {
+  try {
+    const response = await fetch('/api/eventos?type=all', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-      {
-        id: 2,
-        title: "Basquet Masculino",
-        type: "Primera",
-        date: new Date(2025, 4, 9),
-        time: "20:00",
-        location: "Raul Braica, Ceres",
-        homeTeam: "Central",
-        awayTeam: "C.S.L.",
+    })
+
+    if (!response.ok) {
+      throw new Error('Error al obtener eventos')
+    }
+
+    const events = await response.json()
+    return events.map((event: any) => ({
+      id: event.id,
+      title: event.title,
+      description: event.description || undefined,
+      type: event.type as EventType,
+      status: event.status as EventStatus,
+      eventDate: new Date(event.eventDate),
+      startTime: event.startTime || undefined,
+      endTime: event.endTime || undefined,
+      location: event.location,
+      address: event.address || undefined,
+      isPublic: event.isPublic,
+      registrationRequired: event.registrationRequired,
+      registrationDeadline: event.registrationDeadline ? new Date(event.registrationDeadline) : undefined,
+      homeTeam: event.homeTeam || undefined,
+      awayTeam: event.awayTeam || undefined,
+      result: event.result || undefined,
+      score: event.score || undefined,
+      imageUrl: event.imageUrl || undefined,
+      externalUrl: event.externalUrl || undefined,
+      notes: event.notes || undefined,
+      createdAt: new Date(event.createdAt),
+      updatedAt: new Date(event.updatedAt),
+      disciplineId: event.disciplineId || undefined,
+    }))
+  } catch (error) {
+    console.error('Error fetching events:', error)
+    return []
+  }
+}
+
+// Función para obtener eventos próximos
+export async function getUpcomingEvents(): Promise<Event[]> {
+  try {
+    const response = await fetch('/api/eventos?type=upcoming', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-      {
-        id: 3,
-        title: "Atenas vs. C.C.A.O.",
-        type: "Fútbol - Liga Regional",
-        date: new Date(2025, 4, 5),
-        time: "17:30",
-        location: "Estadio Ciudad Deportiva, San Cristóbal",
-        homeTeam: "Atenas",
-        awayTeam: "C.C.A.O.",
+    })
+
+    if (!response.ok) {
+      throw new Error('Error al obtener eventos próximos')
+    }
+
+    const events = await response.json()
+    return events.map((event: any) => ({
+      id: event.id,
+      title: event.title,
+      description: event.description || undefined,
+      type: event.type as EventType,
+      status: event.status as EventStatus,
+      eventDate: new Date(event.eventDate),
+      startTime: event.startTime || undefined,
+      endTime: event.endTime || undefined,
+      location: event.location,
+      address: event.address || undefined,
+      isPublic: event.isPublic,
+      registrationRequired: event.registrationRequired,
+      registrationDeadline: event.registrationDeadline ? new Date(event.registrationDeadline) : undefined,
+      homeTeam: event.homeTeam || undefined,
+      awayTeam: event.awayTeam || undefined,
+      result: event.result || undefined,
+      score: event.score || undefined,
+      imageUrl: event.imageUrl || undefined,
+      externalUrl: event.externalUrl || undefined,
+      notes: event.notes || undefined,
+      createdAt: new Date(event.createdAt),
+      updatedAt: new Date(event.updatedAt),
+      disciplineId: event.disciplineId || undefined,
+    }))
+  } catch (error) {
+    console.error('Error fetching upcoming events:', error)
+    return []
+  }
+}
+
+// Función para obtener eventos pasados
+export async function getPastEvents(): Promise<Event[]> {
+  try {
+    const response = await fetch('/api/eventos?type=past', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-      {
-        id: 4,
-        title: "Jornada de Atletismo",
-        type: "Atletismo - Todas las categorías",
-        date: new Date(2025, 4, 12),
-        time: "09:00",
-        location: "Pista de Atletismo Municipal, Ceres",
-      }
-    ],
-    past: [
-      {
-        id: 5,
-        title: "C.A. Olimpico vs. San Martín",
-        type: "Fútbol - Liga Regional",
-        date: new Date(2025, 3, 15),
-        time: "16:00",
-        location: "Estadio Municipal, Ceres",
-        result: "2-1",
-        homeTeam: "C.A. Olimpico",
-        awayTeam: "San Martín",
-      },
-      {
-        id: 6,
-        title: "Unión vs. C.A. Olimpico",
-        type: "Fútbol - Liga Regional",
-        date: new Date(2025, 3, 8),
-        time: "17:00",
-        location: "Estadio Ciudad Deportiva, Sunchales",
-        result: "1-3",
-        homeTeam: "Unión",
-        awayTeam: "C.A. Olimpico",
-      },
-      {
-        id: 7,
-        title: "Torneo de Natación Provincial",
-        type: "Natación - Categoría Adultos",
-        date: new Date(2025, 3, 5),
-        time: "10:00",
-        location: "Complejo Acuático, Rafaela",
-        result: "2° Puesto General",
-      }
-    ]
-  };
+    })
+
+    if (!response.ok) {
+      throw new Error('Error al obtener eventos pasados')
+    }
+
+    const events = await response.json()
+    return events.map((event: any) => ({
+      id: event.id,
+      title: event.title,
+      description: event.description || undefined,
+      type: event.type as EventType,
+      status: event.status as EventStatus,
+      eventDate: new Date(event.eventDate),
+      startTime: event.startTime || undefined,
+      endTime: event.endTime || undefined,
+      location: event.location,
+      address: event.address || undefined,
+      isPublic: event.isPublic,
+      registrationRequired: event.registrationRequired,
+      registrationDeadline: event.registrationDeadline ? new Date(event.registrationDeadline) : undefined,
+      homeTeam: event.homeTeam || undefined,
+      awayTeam: event.awayTeam || undefined,
+      result: event.result || undefined,
+      score: event.score || undefined,
+      imageUrl: event.imageUrl || undefined,
+      externalUrl: event.externalUrl || undefined,
+      notes: event.notes || undefined,
+      createdAt: new Date(event.createdAt),
+      updatedAt: new Date(event.updatedAt),
+      disciplineId: event.disciplineId || undefined,
+    }))
+  } catch (error) {
+    console.error('Error fetching past events:', error)
+    return []
+  }
+}
+
+// Función para obtener eventos agrupados (compatibilidad con el componente Calendar)
+export async function getEventsGrouped(): Promise<{ upcoming: Event[]; past: Event[] }> {
+  try {
+    const [upcoming, past] = await Promise.all([
+      getUpcomingEvents(),
+      getPastEvents()
+    ])
+    
+    return { upcoming, past }
+  } catch (error) {
+    console.error('Error fetching grouped events:', error)
+    return { upcoming: [], past: [] }
+  }
+}

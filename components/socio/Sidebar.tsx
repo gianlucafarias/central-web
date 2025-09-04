@@ -36,7 +36,7 @@ export default function Sidebar() {
 					</Link>
 				)
 			})}
-			{/* Podríamos añadir un enlace de Logout aquí también */}
+			{/* Logout enlace */}
 		</nav>
 	)
 } 

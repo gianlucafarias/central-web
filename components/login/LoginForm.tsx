@@ -1,15 +1,71 @@
+'use client'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { loginSchema } from "@/lib/validations/auth"
+import { z } from "zod"
+
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const router = useRouter()
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true)
+    setError("")
+
+    const formData = new FormData(e.target as HTMLFormElement)
+    const data = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string
+    }
+    try {
+      const validatedData = loginSchema.parse(data)
+      
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validatedData),
+      })
+
+      const result = await response.json()
+
+      if (result?.error) {
+        console.error("Error de login:", result.error)
+        setError("Credenciales inválidas. Verifica tu email y contraseña.")
+      } else if (result?.message) {
+        // Login exitoso
+        router.push("/socio/dashboard")
+        router.refresh()
+      } else {
+        setError("Error inesperado. Intenta nuevamente.")
+      }
+    } catch (error) {
+      console.error("Error en login:", error)
+      if (error instanceof z.ZodError) {
+        setError("Datos inválidos")
+      } else {
+        setError("Error inesperado. Intenta nuevamente.")
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form onSubmit={handleSubmit} className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold font-mono">Ingresa a tu cuenta</h1>
         <p className="text-balance text-sm text-muted-foreground">
@@ -19,7 +75,7 @@ export function LoginForm({
       <div className="grid gap-6">
         <div className="grid gap-2">
           <Label htmlFor="email">Correo electrónico</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input id="email" name="email" type="email" placeholder="m@example.com" required />
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
@@ -31,10 +87,10 @@ export function LoginForm({
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
-          <Input id="password" type="password" required />
+          <Input id="password" name="password" type="password" required />
         </div>
-        <Button type="submit" className="w-full">
-          Ingresar
+        <Button type="submit" className="w-full" disabled={loading}>
+        {loading ? "Ingresando..." : "Ingresar"}
         </Button>
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">

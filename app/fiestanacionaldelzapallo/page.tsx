@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Footer from '@/components/Footer' 
+import Navbar from '@/components/Navbar'
 import { useState, useEffect, useRef } from 'react'; 
 import { Facebook, Instagram, Twitter } from "lucide-react";
 import Link from 'next/link';
@@ -91,6 +92,7 @@ export default function FiestaNacionalDelZapallo() {
 
 	return (
 		<div className="pt-25 pb-1 md:pb-16">
+			<Navbar />
 			<div
 				className="relative flex h-[50vh] min-h-[400px] items-center justify-center bg-cover bg-center text-center text-white "
 				style={{ backgroundImage: "url('/fnz.jpg')" }} 

@@ -55,6 +55,7 @@ model User {
   phone         String
   email         String?   @unique
   emailVerified DateTime?
+  password      String?
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -107,6 +108,29 @@ enum PaymentStatus {
   REFUNDED
 }
 
+enum NewsStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum EventType {
+  MATCH
+  TOURNAMENT
+  TRAINING
+  SOCIAL
+  MEETING
+  OTHER
+}
+
+enum EventStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  POSTPONED
+}
+
 model Payment {
   id              String        @id @default(cuid())
   amount          Decimal
@@ -122,4 +146,135 @@ model Payment {
   user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("payments")
+}
+
+model NewsArticle {
+  id              String      @id @default(cuid())
+  title           String
+  slug            String      @unique
+  category        String      // Ej: 'Fútbol', 'Básquet', 'Institucional'
+  author          String?     // Opcional, podría ser un ID de usuario o nombre
+  publicationDate DateTime    @default(now())
+  status          NewsStatus  @default(DRAFT)
+  summary         String?     // Un breve resumen o entradilla
+  excerpt         String?     // Resumen corto para listados
+  content         String?     @db.Text // El contenido completo del artículo (Markdown, HTML)
+  imageUrl        String?     // URL de la imagen principal del artículo
+  viewCount       Int         @default(0) // Contador de vistas
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Relación opcional con disciplina
+  disciplineId    String?
+  discipline      Discipline? @relation("DisciplineNews", fields: [disciplineId], references: [id], onDelete: SetNull)
+
+  @@map("news_articles")
+}
+
+model Discipline {
+  id              String      @id @default(cuid())
+  name            String
+  slug            String      @unique
+  description     String      @db.Text
+  mainImageUrl    String?
+  isActive        Boolean     @default(true)
+  displayOrder    Int         @default(0) // Para ordenar las disciplinas en la UI
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Relaciones
+  categories      DisciplineCategory[]
+  quickLinks      DisciplineQuickLink[]
+  contactInfo     DisciplineContactInfo?
+  relatedNews     NewsArticle[] @relation("DisciplineNews")
+  events          Event[]     @relation("DisciplineEvents")
+
+  @@map("disciplines")
+}
+
+model DisciplineCategory {
+  id            String      @id @default(cuid())
+  name          String
+  description   String?
+  displayOrder  Int         @default(0)
+  isActive      Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relación con disciplina
+  disciplineId  String
+  discipline    Discipline  @relation(fields: [disciplineId], references: [id], onDelete: Cascade)
+
+  @@map("discipline_categories")
+}
+
+model DisciplineQuickLink {
+  id            String      @id @default(cuid())
+  title         String
+  url           String?
+  icon          String?
+  displayOrder  Int         @default(0)
+  isActive      Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relación con disciplina
+  disciplineId  String
+  discipline    Discipline  @relation(fields: [disciplineId], references: [id], onDelete: Cascade)
+
+  @@map("discipline_quick_links")
+}
+
+model DisciplineContactInfo {
+  id            String      @id @default(cuid())
+  phone         String?
+  email         String?
+  whatsapp      String?
+  address       String?
+  schedule      String?     // Horarios de atención
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relación 1:1 con disciplina
+  disciplineId  String      @unique
+  discipline    Discipline  @relation(fields: [disciplineId], references: [id], onDelete: Cascade)
+
+  @@map("discipline_contact_info")
+}
+
+model Event {
+  id              String      @id @default(cuid())
+  title           String
+  description     String?     @db.Text
+  type            EventType
+  status          EventStatus @default(SCHEDULED)
+  eventDate       DateTime
+  startTime       String?     // Formato HH:MM
+  endTime         String?     // Formato HH:MM
+  location        String
+  address         String?     // Dirección específica si es diferente a location
+  isPublic        Boolean     @default(true)
+  registrationRequired Boolean @default(false)
+  registrationDeadline DateTime? // Fecha límite para inscripción
+  
+  // Campos para partidos/deportes
+  homeTeam        String?
+  awayTeam        String?
+  result          String?     // Resultado del evento
+  score           String?     // Marcador específico
+  
+  // Campos adicionales
+  imageUrl        String?     // Imagen del evento
+  externalUrl     String?     // URL externa relacionada
+  notes           String?     @db.Text // Notas adicionales
+  
+  // Timestamps
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  // Relación opcional con disciplina
+  disciplineId    String?
+  discipline      Discipline? @relation("DisciplineEvents", fields: [disciplineId], references: [id], onDelete: SetNull)
+
+  @@map("events")
 }

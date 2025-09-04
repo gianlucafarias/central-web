@@ -4,6 +4,10 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
 
 const navItems = [
   { name: "Inicio", href: "/" },
@@ -44,6 +48,9 @@ export default function Navbar() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null); 
   const [openMobileSubMenu, setOpenMobileSubMenu] = useState<string | null>(null);
   const pathname = usePathname(); 
+
+  const { data: session, status } = useSession();
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -229,14 +236,38 @@ export default function Navbar() {
                 </div>
               );
             })}
-            <div className="pt-3 flex flex-col space-y-2">
-              <Link href="/register" className="w-full text-center bg-[#ffdc00] text-black font-semibold py-2 px-4 rounded-full hover:bg-yellow-500 transition-colors text-sm font-mono" onClick={() => setIsMenuOpen(false)}>
-                REGISTRARME
-              </Link>
-              <Link href="/login" className="w-full text-center bg-white text-black font-semibold py-2 px-4 rounded-full hover:bg-gray-200 transition-colors text-sm font-mono" onClick={() => setIsMenuOpen(false)}>
-                INGRESAR
-              </Link>
-            </div>
+                      <div className="flex items-center space-x-4">
+            {status === 'loading' ? null : session?.user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center focus:outline-none">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback>
+                      {(session.user?.name?.[0] ?? session.user?.email?.[0] ?? 'U').toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel className="font-mono">{session.user?.email}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href='/socio/perfil'>Ir a mi cuenta</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/' })}>
+                    Cerrar sesión
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Link href="/register" className="bg-[#ffdc00] text-black font-semibold py-2 px-6 rounded-full hover:bg-yellow-500 transition-colors text-sm cursor-pointer font-mono">
+                  REGISTRARME
+                </Link>
+                <Link href="/login" className="bg-white text-black font-semibold py-2 px-6 rounded-full hover:bg-gray-200 transition-colors text-sm cursor-pointer font-mono">
+                  INGRESAR
+                </Link>
+              </>
+            )}
+          </div>
           </div>
         </div>
       )}
