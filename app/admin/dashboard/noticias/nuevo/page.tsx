@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { useRouter } from 'next/navigation'
-import dynamic from "next/dynamic"
 import { SiteHeader } from "@/components/admin/site-header"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,15 +18,6 @@ import { ArrowLeftIcon, SaveIcon, UploadCloudIcon } from "lucide-react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 // import { Separator } from "@/components/ui/separator" // Podríamos no necesitarlo si las cards son suficientes
 
-// Importar el CSS del editor de Markdown
-import "@uiw/react-md-editor/markdown-editor.css"
-import "@uiw/react-markdown-preview/markdown.css"
-
-// Carga dinámica del MDEditor
-const MDEditor = dynamic(
-  () => import("@uiw/react-md-editor"),
-  { ssr: false }
-)
 
 // Mock de categorías, en una app real vendrían de la DB o una config
 const mockCategories = ['Fútbol', 'Básquet', 'Vóley', 'Institucional', 'Eventos Especiales', 'Actividades Sociales']
@@ -75,7 +65,6 @@ export default function NuevaNoticiaPage() {
             <ArrowLeftIcon className="mr-2 h-4 w-4" />
             Volver al Listado
           </Button>
-          {/* Espacio para un título de página si SiteHeader no fuera suficiente o para botones de acción globales */}
           <div className="w-auto"></div>
         </div>
 
@@ -97,12 +86,7 @@ export default function NuevaNoticiaPage() {
             <div className="space-y-2">
               <Label htmlFor="articleContent" className="text-base font-medium">Contenido Principal <span className="text-red-500">*</span></Label>
               <div data-color-mode="light"> {/* O "dark" si tienes tema oscuro */} 
-                <MDEditor
-                  value={content}
-                  onChange={(value) => setContent(value)}
-                  height={500} // Altura del editor
-                  // Puedes explorar más props como previewOptions, commands, etc.
-                />
+              
               </div>
             </div>
           </div>
