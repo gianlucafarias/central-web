@@ -4,7 +4,6 @@ import {
 } from 'lucide-react';
 import FutbolIcon from '../public/disciplinas/FutbolIcon';
 import BasquetIcon from '../public/disciplinas/BasquetIcon';
-import NatacionIcon from '../public/disciplinas/NatacionIcon';
 import IniciacionDeportivaIcon from '../public/disciplinas/IniciacionDeportiva';
 import PatinIcon from '../public/disciplinas/PatinIcon';
 import PadelIcon from '../public/disciplinas/PadelIcon';
