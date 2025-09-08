@@ -19,7 +19,6 @@ import {
   MoreHorizontalIcon,
   Calendar,
   MapPin,
-  Clock,
 } from "lucide-react"
 
 import { Event, EventType, EventStatus } from "@/lib/events"
@@ -111,8 +110,11 @@ export const columns: ColumnDef<Event>[] = [
     header: ({ table }) => (
       <Checkbox
         checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          table.getIsAllPageRowsSelected()
+            ? true
+            : table.getIsSomePageRowsSelected()
+              ? 'indeterminate'
+              : false
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Seleccionar todos"

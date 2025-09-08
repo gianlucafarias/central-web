@@ -5,11 +5,9 @@ import { QuickActionsBar } from "@/components/admin/quick-actions-bar"
 import { IntegrationWarnings } from "@/components/admin/integration-warnings"
 
 import { SociosProvider } from "@/components/admin/socios-provider"
-// SidebarProvider, AppSidebar y SidebarInset ya no se importan ni se usan aquí
 
 export default function Page() {
   return (
-    // Ya no se necesita SidebarProvider, AppSidebar ni SidebarInset aquí
     <>
       <SiteHeader title="Panel de Control" />
       <div className="flex flex-1 flex-col">

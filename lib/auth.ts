@@ -1,6 +1,5 @@
 
 import { getServerSession } from 'next-auth'
-import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next'
 import { authOptions } from '@/app/api/auth/[...nextauth]'
 
 // Para RSC / Route Handlers (App Router)

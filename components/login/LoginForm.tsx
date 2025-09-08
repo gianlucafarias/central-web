@@ -73,6 +73,9 @@ export function LoginForm({
         </p>
       </div>
       <div className="grid gap-6">
+        {error && (
+          <p className="text-sm text-destructive" role="alert">{error}</p>
+        )}
         <div className="grid gap-2">
           <Label htmlFor="email">Correo electrónico</Label>
           <Input id="email" name="email" type="email" placeholder="m@example.com" required />

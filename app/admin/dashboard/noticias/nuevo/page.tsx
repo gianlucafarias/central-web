@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { useState } from "react"
 import { useRouter } from 'next/navigation'
 import { SiteHeader } from "@/components/admin/site-header"
 import { Button } from "@/components/ui/button"
@@ -16,22 +16,20 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { ArrowLeftIcon, SaveIcon, UploadCloudIcon } from "lucide-react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Separator } from "@/components/ui/separator" // Podríamos no necesitarlo si las cards son suficientes
-
+import Image from "next/image"
 
 // Mock de categorías, en una app real vendrían de la DB o una config
 const mockCategories = ['Fútbol', 'Básquet', 'Vóley', 'Institucional', 'Eventos Especiales', 'Actividades Sociales']
 
 export default function NuevaNoticiaPage() {
   const router = useRouter()
-  const [title, setTitle] = React.useState("")
-  const [slug, setSlug] = React.useState("")
-  const [category, setCategory] = React.useState("")
-  const [status, setStatus] = React.useState("draft")
-  const [imageUrl, setImageUrl] = React.useState("")
-  const [summary, setSummary] = React.useState("")
-  const [content, setContent] = React.useState<string | undefined>("**Hello world!!!**") // El editor espera string | undefined
-  const [publicationDate, setPublicationDate] = React.useState(new Date().toISOString().split('T')[0])
+  const [title, setTitle] = useState("")
+  const [slug, setSlug] = useState("")
+  const [category, setCategory] = useState("")
+  const [status, setStatus] = useState("draft")
+  const [imageUrl, setImageUrl] = useState("")
+  const [summary, setSummary] = useState("")
+  const [publicationDate, setPublicationDate] = useState(new Date().toISOString().split('T')[0])
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value
@@ -48,7 +46,7 @@ export default function NuevaNoticiaPage() {
       status: finalStatus,
       imageUrl,
       summary,
-      content,
+      content: '',
       publicationDate: new Date(publicationDate), 
     }
     console.log('Enviando nuevo artículo:', newArticleData)
@@ -175,7 +173,7 @@ export default function NuevaNoticiaPage() {
                 {imageUrl && (
                     <div className="mt-4 space-y-1.5">
                         <Label className="text-sm font-medium">Imagen Actual:</Label>
-                        <img src={imageUrl} alt="Preview" className="mt-1 rounded-md border max-h-48 w-full object-contain" />
+                        <Image src={imageUrl} alt="Preview" className="mt-1 rounded-md border max-h-48 w-full object-contain" />
                         <Button variant="link" size="sm" className="text-xs px-0" onClick={() => setImageUrl('')}>
                             Quitar imagen
                         </Button>

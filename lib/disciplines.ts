@@ -1,4 +1,4 @@
-import { Discipline, DisciplineCategory, DisciplineQuickLink, DisciplineContactInfo } from '@/types/discipline';
+import { Discipline } from '@/types/discipline';
 
 // Función helper para crear disciplinas con datos mock
 function createMockDiscipline(data: Partial<Discipline>): Discipline {

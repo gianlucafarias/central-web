@@ -10,11 +10,8 @@ import {
   AlertTriangle, 
   Shield, 
   Database, 
-  Webhook, 
   ExternalLink,
   Info,
-  CheckCircle,
-  XCircle
 } from "lucide-react"
 
 interface IntegrationStatus {

@@ -1,6 +1,5 @@
 import NextAuth, { AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { PrismaAdapter } from "@auth/prisma-adapter"
 import { PrismaClient } from "@/lib/generated/prisma"
 import bcrypt from "bcryptjs"
 import { z } from "zod"
@@ -13,7 +12,6 @@ const loginSchema = z.object({
 })
 
 export const authOptions: AuthOptions = {
-  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -79,10 +77,9 @@ export const authOptions: AuthOptions = {
   },
   pages: {
     signIn: "/login",
-    signUp: "/register",
     error: "/login" // Redirigir errores de vuelta al login
   },
-  debug: process.env.NODE_ENV === "development" // Para ver errores en desarrollo
+  debug: process.env.NODE_ENV === "development"
 }
 
 export default NextAuth(authOptions)

@@ -73,14 +73,14 @@ const CalendarSection = () => {
           const past = await pastResponse.json();
           
           setEvents({
-            upcoming: upcoming.map((event: any) => ({
+            upcoming: upcoming.map((event: Event) => ({
               ...event,
               eventDate: new Date(event.eventDate),
               createdAt: new Date(event.createdAt),
               updatedAt: new Date(event.updatedAt),
               registrationDeadline: event.registrationDeadline ? new Date(event.registrationDeadline) : undefined,
             })),
-            past: past.map((event: any) => ({
+            past: past.map((event: Event) => ({
               ...event,
               eventDate: new Date(event.eventDate),
               createdAt: new Date(event.createdAt),

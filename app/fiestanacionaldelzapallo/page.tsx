@@ -91,7 +91,7 @@ export default function FiestaNacionalDelZapallo() {
   }, [isSoberanasSectionVisible, hasSoberanasFadedIn]);
 
 	return (
-		<div className="pt-25 pb-1 md:pb-16">
+		<div className="pb-1 md:pb-16">
 			<Navbar />
 			<div
 				className="relative flex h-[50vh] min-h-[400px] items-center justify-center bg-cover bg-center text-center text-white "
@@ -100,7 +100,7 @@ export default function FiestaNacionalDelZapallo() {
 				<div className="absolute inset-0 bg-black/50"></div>
 
 				<div className="relative z-10 px-4">
-					<Image src="/fnz/logofnz2.png" className="w-full max-w-xl mx-auto" alt="Logo" width={700} height={300} />
+					<Image src="/fnz/logofnz2.png" className="w-full max-w-xl mx-auto" alt="Logo" width={500} height={200} />
 				</div>
 			</div>
 

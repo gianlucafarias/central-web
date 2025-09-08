@@ -1,6 +1,7 @@
 import { RegisterForm } from "@/components/register/RegisterForm";
 import Navbar from "@/components/Navbar";
 import { Metadata } from 'next';
+import Image from "next/image";
 
 
 export const metadata: Metadata = {
@@ -23,10 +24,12 @@ export default function RegisterPage() {
         </div>
       </div>
       <div className="relative hidden bg-muted lg:block">
-        <img
+        <Image
           src="/sociosbg.jpg"
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          width={1000}
+          height={500}
         />
       </div>
       </div>

@@ -13,17 +13,18 @@ import {
 import { QuickPaymentDialog } from "./quick-payment-dialog"
 import { AddSocioDialog } from "./add-socio-dialog"
 import { toast } from "sonner"
+import type { PaymentResponse } from "@/lib/services/payment-service"
 
 export function QuickActionsBar() {
   const [isQuickPaymentOpen, setIsQuickPaymentOpen] = React.useState(false)
   const [isAddSocioOpen, setIsAddSocioOpen] = React.useState(false)
 
-  const handlePaymentSuccess = (payment: any) => {
+  const handlePaymentSuccess = (payment: PaymentResponse) => {
     toast.success(`Pago registrado exitosamente por $${payment.amount}`)
     // Aquí podrías actualizar algún estado global o refrescar datos
   }
 
-  const handleSocioCreated = (newSocio: any) => {
+  const handleSocioCreated = (newSocio: { firstName: string; lastName: string }) => {
     toast.success(`Socio ${newSocio.firstName} ${newSocio.lastName} agregado exitosamente`)
     // Aquí podrías actualizar algún estado global o refrescar datos
   }

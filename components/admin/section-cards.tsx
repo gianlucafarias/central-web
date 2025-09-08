@@ -1,6 +1,6 @@
 'use client'
 
-import { mockAdminUsers, AdminUserView } from '@/app/admin/dashboard/data-socios'
+import { mockAdminUsers } from '@/app/admin/dashboard/data-socios'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Users, UserPlus, DollarSign, UserCheck } from 'lucide-react'
 import { calculateAndFormatSociosKPIs, SociosKPIs } from '@/lib/utils'

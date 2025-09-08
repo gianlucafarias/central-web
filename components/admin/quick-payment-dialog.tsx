@@ -14,15 +14,15 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
 import { toast } from "sonner"
 import { Loader2, Search, User, CreditCard, X } from "lucide-react"
 import { PaymentDialog } from "./payment-dialog"
+import type { PaymentResponse } from "@/lib/services/payment-service"
 
 interface QuickPaymentDialogProps {
   isOpen: boolean
   onOpenChange: (isOpen: boolean) => void
-  onPaymentSuccess?: (payment: any) => void
+  onPaymentSuccess?: (payment: PaymentResponse) => void
 }
 
 interface SearchResult {
@@ -101,7 +101,7 @@ export function QuickPaymentDialog({
     setIsPaymentModalOpen(true)
   }
 
-  const handlePaymentSuccess = (payment: any) => {
+  const handlePaymentSuccess = (payment: PaymentResponse) => {
     onPaymentSuccess?.(payment)
     // Actualizar el socio en los resultados de búsqueda
     setSearchResults(prev => 
@@ -110,7 +110,7 @@ export function QuickPaymentDialog({
           ? {
               ...socio,
               lastPaymentAmount: Number(payment.amount),
-              lastPaymentDate: new Date(payment.paymentDate),
+              lastPaymentDate: new Date(payment.createdAt),
               status: 'ACTIVE' as const,
             }
           : socio
@@ -225,7 +225,7 @@ export function QuickPaymentDialog({
                   <div className="text-center py-8">
                     <User className="mx-auto h-12 w-12 text-muted-foreground/50" />
                     <p className="mt-2 text-sm text-muted-foreground">
-                      No se encontraron socios con "{searchQuery}"
+                      No se encontraron socios con &#39;{searchQuery}&#39;
                     </p>
                     <p className="text-xs text-muted-foreground">
                       Intenta con DNI, número de socio o nombre completo

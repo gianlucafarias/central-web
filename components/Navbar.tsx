@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 
 const navItems = [
@@ -17,7 +17,6 @@ const navItems = [
       { name: "Historia", href: "/el-club/historia" },
       { name: "Comisión Directiva", href: "/el-club/comision" },
       { name: "Instalaciones", href: "/el-club/instalaciones" },
-      { name: "Estatuto", href: "/el-club/estatuto" },
       { name: "Binguito", href: "/el-club/binguito" },
 
     ],
@@ -29,7 +28,6 @@ const navItems = [
       { name: "Basquet", href: "/disciplinas/basquet" },
       { name: "Voley", href: "/disciplinas/voley" },
       { name: "Patín", href: "/disciplinas/patin" },
-      { name: "Natación", href: "/disciplinas/natacion" },
       { name: "Padel", href: "/disciplinas/padel" },
       { name: "Inicación deportiva", href: "/disciplinas/inicacion-deportiva" },
 

@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { SiteHeader } from "@/components/admin/site-header"
-import { Button } from "@/components/ui/button"
 import { PlusCircleIcon } from "lucide-react"
 import { EventosDataTable } from "@/components/admin/eventos-data-table"
 import { buttonVariants } from "@/components/ui/button"
@@ -26,7 +25,7 @@ export default function EventosPage() {
         if (response.ok) {
           const data = await response.json()
           // Convertir fechas de string a Date objects
-          const eventosWithDates = data.map((event: any) => ({
+          const eventosWithDates = data.map((event: Event) => ({
             ...event,
             eventDate: new Date(event.eventDate),
             createdAt: new Date(event.createdAt),

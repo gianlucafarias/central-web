@@ -1,5 +1,4 @@
 import { Button } from "../components/ui/button";
-import Image from "next/image";
 import NewsCard from "./NewsCard";
 import { getAllNews } from '@/lib/news';
 import Link from 'next/link';
@@ -41,14 +40,7 @@ const NewsSection = () => {
           </div>
           {/* Ad banner container */}
           <div className="w-full md:w-auto md:max-w-lg flex justify-center md:justify-end">
-            <Image 
-              src="/prodas.gif" 
-              alt="Publicidad" 
-              width={600} 
-              height={100} 
-              unoptimized
-              className="w-full h-auto object-contain max-h-[100px]"
-            />
+          
           </div>
         </div>
         <NewsSectionContent />

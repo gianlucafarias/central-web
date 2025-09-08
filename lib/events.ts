@@ -50,7 +50,32 @@ export async function getAllEvents(): Promise<Event[]> {
     }
 
     const events = await response.json()
-    return events.map((event: any) => ({
+    type EventApi = {
+      id: string
+      title: string
+      description?: string | null
+      type: EventType
+      status: EventStatus
+      eventDate: string
+      startTime?: string | null
+      endTime?: string | null
+      location: string
+      address?: string | null
+      isPublic: boolean
+      registrationRequired: boolean
+      registrationDeadline?: string | null
+      homeTeam?: string | null
+      awayTeam?: string | null
+      result?: string | null
+      score?: string | null
+      imageUrl?: string | null
+      externalUrl?: string | null
+      notes?: string | null
+      createdAt: string
+      updatedAt: string
+      disciplineId?: string | null
+    }
+    return (events as EventApi[]).map((event) => ({
       id: event.id,
       title: event.title,
       description: event.description || undefined,
@@ -96,7 +121,32 @@ export async function getUpcomingEvents(): Promise<Event[]> {
     }
 
     const events = await response.json()
-    return events.map((event: any) => ({
+    type EventApi = {
+      id: string
+      title: string
+      description?: string | null
+      type: EventType
+      status: EventStatus
+      eventDate: string
+      startTime?: string | null
+      endTime?: string | null
+      location: string
+      address?: string | null
+      isPublic: boolean
+      registrationRequired: boolean
+      registrationDeadline?: string | null
+      homeTeam?: string | null
+      awayTeam?: string | null
+      result?: string | null
+      score?: string | null
+      imageUrl?: string | null
+      externalUrl?: string | null
+      notes?: string | null
+      createdAt: string
+      updatedAt: string
+      disciplineId?: string | null
+    }
+    return (events as EventApi[]).map((event) => ({
       id: event.id,
       title: event.title,
       description: event.description || undefined,
@@ -142,7 +192,32 @@ export async function getPastEvents(): Promise<Event[]> {
     }
 
     const events = await response.json()
-    return events.map((event: any) => ({
+    type EventApi = {
+      id: string
+      title: string
+      description?: string | null
+      type: EventType
+      status: EventStatus
+      eventDate: string
+      startTime?: string | null
+      endTime?: string | null
+      location: string
+      address?: string | null
+      isPublic: boolean
+      registrationRequired: boolean
+      registrationDeadline?: string | null
+      homeTeam?: string | null
+      awayTeam?: string | null
+      result?: string | null
+      score?: string | null
+      imageUrl?: string | null
+      externalUrl?: string | null
+      notes?: string | null
+      createdAt: string
+      updatedAt: string
+      disciplineId?: string | null
+    }
+    return (events as EventApi[]).map((event) => ({
       id: event.id,
       title: event.title,
       description: event.description || undefined,

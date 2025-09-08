@@ -31,3 +31,4 @@ export const updatePaymentSchema = createPaymentSchema.partial().extend({
 })
 
 export type UpdatePaymentInput = z.infer<typeof updatePaymentSchema>
+

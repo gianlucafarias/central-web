@@ -34,3 +34,4 @@ export async function getLastSocioNumber(): Promise<string | null> {
         return null
     }
 }
+

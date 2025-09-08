@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@/lib/generated/prisma'
-import { verifyAuth } from '@/lib/auth'
 
 const prisma = new PrismaClient()
 
 // GET - Obtener evento por ID (público)
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const event = await prisma.event.findUnique({
       where: {
-        id: params.id,
+        id,
         isPublic: true // Solo eventos públicos
       },
       include: {
@@ -46,7 +46,7 @@ export async function GET(
 // PUT - Actualizar evento (temporalmente sin protección)
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // TODO: Restaurar autenticación en producción
@@ -59,10 +59,10 @@ export async function PUT(
     // }
 
     const body = await request.json()
-
+    const { id } = await params
     // Verificar que el evento existe
     const existingEvent = await prisma.event.findUnique({
-      where: { id: params.id }
+      where: { id }
     })
 
     if (!existingEvent) {
@@ -74,7 +74,7 @@ export async function PUT(
 
     // Actualizar el evento
     const event = await prisma.event.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         title: body.title,
         description: body.description,
@@ -121,7 +121,7 @@ export async function PUT(
 // DELETE - Eliminar evento (temporalmente sin protección)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // TODO: Restaurar autenticación en producción
@@ -134,8 +134,9 @@ export async function DELETE(
     // }
 
     // Verificar que el evento existe
+    const { id } = await params
     const existingEvent = await prisma.event.findUnique({
-      where: { id: params.id }
+      where: { id }
     })
 
     if (!existingEvent) {
@@ -147,7 +148,7 @@ export async function DELETE(
 
     // Eliminar el evento
     await prisma.event.delete({
-      where: { id: params.id }
+      where: { id }
     })
 
     return NextResponse.json({ message: 'Evento eliminado correctamente' })

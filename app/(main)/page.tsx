@@ -17,13 +17,12 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <HeroSection />
-      <Sponsors />
       <NewsSection />
       <FiestaDelZapallo />
       <Calendar />
       <Disciplinas />
-
       <SociosSection />
+      <Sponsors />
       <Footer />
       <ToTopButton />
     </main>

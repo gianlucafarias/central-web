@@ -13,7 +13,6 @@ const disciplinas = [
   { nombre: "Fútbol", Icono: FutbolIcon, href: "/disciplinas/futbol" },
   { nombre: "Básquet", Icono: BasquetIcon, href: "/disciplinas/basquet" }, 
   { nombre: "Vóley", Icono: Volleyball, href: "/disciplinas/voley" },
-  { nombre: "Natación", Icono: NatacionIcon, href: "/disciplinas/natacion" },
   { nombre: "Patín", Icono: PatinIcon, href: "/disciplinas/patin" },
   { nombre: "Iniciación Deportiva", Icono: IniciacionDeportivaIcon, href: "/disciplinas/iniciacion-deportiva" },
   { nombre: "Pádel", Icono: PadelIcon, href: "/disciplinas/padel" }, 

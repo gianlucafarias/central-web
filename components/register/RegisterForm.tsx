@@ -111,6 +111,9 @@ export function RegisterForm({
 
 
       <div className="grid gap-6">
+        {error && (
+          <p className="text-sm text-destructive" role="alert">{error}</p>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
             <Label htmlFor="firstName">Nombre</Label>
@@ -189,7 +192,6 @@ export function RegisterForm({
         </div>
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? "Registrando..." : "Registrarme"}
-          Registrarme
         </Button>
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">

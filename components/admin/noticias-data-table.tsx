@@ -105,9 +105,9 @@ export const columns: ColumnDef<NewsArticle>[] = [
     cell: ({ row }) => {
       const status = row.getValue("status") as NewsStatus
       let variant: "default" | "secondary" | "outline" | "destructive" = "outline"
-      if (status === "published") variant = "default"
-      if (status === "draft") variant = "secondary"
-      if (status === "archived") variant = "destructive"
+      if (status === "PUBLISHED") variant = "default"
+      if (status === "DRAFT") variant = "secondary"
+      if (status === "ARCHIVED") variant = "destructive"
       return <Badge variant={variant} className="capitalize">{status}</Badge>
     },
   },
@@ -118,7 +118,7 @@ export const columns: ColumnDef<NewsArticle>[] = [
   },
   {
     id: "actions",
-    cell: ({ row, table }) => {
+    cell: ({ row }) => {
       const article = row.original
       return (
         <DropdownMenu modal={false}> {/* modal={false} para evitar problemas con otros dialogs */}

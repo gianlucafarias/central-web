@@ -14,7 +14,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  // RowData, // Para tipar TableMeta si se desea
+  RowData, // Para tipar TableMeta si se desea
 } from "@tanstack/react-table"
 import {
   ChevronDownIcon,
@@ -28,9 +28,8 @@ import {
 } from "lucide-react"
 
 import { useSociosContext } from "@/components/admin/socios-provider"
-import { AdminUserView } from "@/app/admin/dashboard/data-socios"
+import type { Socio } from "@/hooks/use-socios"
 import { toast } from "sonner"
-import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -45,7 +44,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
   Select,
@@ -69,15 +67,15 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-// Para tipar table.options.meta si se desea mayor type-safety
-// declare module '@tanstack/react-table' {
-//   interface TableMeta<TData extends RowData> {
-//     openPaymentModal?: (socio: TData) => void
-//   }
-// }
+// Para tipar table.options.meta con seguridad de tipos
+declare module '@tanstack/react-table' {
+  interface TableMeta<TData extends RowData> {
+    openPaymentModal?: (socio: TData) => void
+  }
+}
 
 
-const createColumns = (socios: AdminUserView[]): ColumnDef<AdminUserView>[] => [
+const createColumns = (socios: Socio[]): ColumnDef<Socio>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -178,7 +176,7 @@ const createColumns = (socios: AdminUserView[]): ColumnDef<AdminUserView>[] => [
     accessorKey: "status",
     header: "Estado",
     cell: ({ row }) => {
-      const status = row.getValue("status") as AdminUserView["status"]
+      const status = row.getValue("status") as string
       let variant: "default" | "destructive" | "outline" | "secondary" = "secondary"
       let displayText: string = status
 
@@ -237,9 +235,7 @@ const createColumns = (socios: AdminUserView[]): ColumnDef<AdminUserView>[] => [
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {
-                // Llama a la función openPaymentModal desde table.options.meta
-                // El '(table.options.meta as any)' es para evitar problemas de tipado si TableMeta no está explícitamente definida.
-                (table.options.meta as any)?.openPaymentModal(socio)
+                table.options.meta?.openPaymentModal?.(socio)
               }}
             >
               Registrar Pago
@@ -252,8 +248,8 @@ const createColumns = (socios: AdminUserView[]): ColumnDef<AdminUserView>[] => [
 ]
 
 export function DataTable() {
-  const { socios, isLoading, error, refreshSocios } = useSociosContext()
-  const [data, setData] = React.useState(socios)
+  const { socios, refreshSocios } = useSociosContext()
+  const [data, setData] = React.useState<Socio[]>(socios)
 
   // Sincronizar datos cuando cambien los socios
   React.useEffect(() => {
@@ -275,23 +271,33 @@ export function DataTable() {
   })
 
   const [isPaymentModalOpen, setIsPaymentModalOpen] = React.useState(false)
-  const [selectedSocioForPayment, setSelectedSocioForPayment] = React.useState<AdminUserView | null>(null)
+  const [selectedSocioForPayment, setSelectedSocioForPayment] = React.useState<{
+    id: string
+    nombreCompleto: string
+    numeroSocio: string
+    status: string
+  } | null>(null)
 
   // Estado para el modal de agregar socio
   const [isAddSocioModalOpen, setIsAddSocioModalOpen] = React.useState(false)
 
-  const handleOpenPaymentModal = (socio: AdminUserView) => {
-    setSelectedSocioForPayment(socio)
+  const handleOpenPaymentModal = (socio: Socio) => {
+    setSelectedSocioForPayment({
+      id: socio.id,
+      nombreCompleto: socio.nombreCompleto,
+      numeroSocio: socio.numeroSocio,
+      status: socio.status,
+    })
     setIsPaymentModalOpen(true)
   }
-
+{/*}
   const handlePaymentSuccess = (payment: any) => {
     // Refrescar los datos desde la API para obtener la información más actualizada
     refreshSocios()
     toast.success(`Pago registrado exitosamente para ${selectedSocioForPayment?.nombreCompleto}`)
   }
-
-  const handleSocioCreated = (newSocio: any) => {
+*/}
+  const handleSocioCreated = (newSocio: { firstName: string; lastName: string }) => {
     // Refrescar los datos desde la API para mostrar el nuevo socio
     refreshSocios()
     toast.success(`Socio ${newSocio.firstName} ${newSocio.lastName} agregado exitosamente`)
@@ -299,7 +305,7 @@ export function DataTable() {
 
 
 
-  const table = useReactTable({
+  const table = useReactTable<Socio>({
     data,
     columns, // Usamos la constante columns directamente
     state: {
@@ -327,7 +333,7 @@ export function DataTable() {
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
-  const currentStatusFilter = table.getColumn("status")?.getFilterValue() as AdminUserView["status"] | undefined
+  const currentStatusFilter = table.getColumn("status")?.getFilterValue() as string | undefined
 
   return (
     <> {/* Fragmento React para envolver Tabs y Dialog */}
@@ -337,7 +343,7 @@ export function DataTable() {
           if (value === "outline") {
             table.getColumn("status")?.setFilterValue(undefined)
           } else {
-            table.getColumn("status")?.setFilterValue(value as AdminUserView["status"])
+            table.getColumn("status")?.setFilterValue(value)
           }
         }}
         className="flex w-full flex-col justify-start gap-6"
@@ -347,7 +353,7 @@ export function DataTable() {
             value={currentStatusFilter || "outline"}
             onValueChange={(value) => {
               if (value === "outline") { table.getColumn("status")?.setFilterValue(undefined); }
-              else { table.getColumn("status")?.setFilterValue(value as AdminUserView["status"]); }
+              else { table.getColumn("status")?.setFilterValue(value); }
             }}
           >
             <SelectTrigger
@@ -381,7 +387,7 @@ export function DataTable() {
             <TabsTrigger value="PENDING_VALIDATION" className="gap-1">
               Pendientes{" "}
               <Badge variant="secondary" className="flex h-5 w-5 items-center justify-center rounded-full bg-muted-foreground/30">
-                {data.filter(u => u.status === 'PENDING').length}
+                {data.filter(u => u.status === 'PENDING_VALIDATION').length}
               </Badge>
             </TabsTrigger>
           </TabsList>
@@ -561,7 +567,6 @@ export function DataTable() {
         isOpen={isPaymentModalOpen}
         onOpenChange={setIsPaymentModalOpen} 
         socio={selectedSocioForPayment}
-        onPaymentSuccess={handlePaymentSuccess}
       />
 
       <AddSocioDialog

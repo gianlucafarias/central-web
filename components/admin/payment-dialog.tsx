@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { AdminUserView } from "@/app/admin/dashboard/data-socios"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -23,13 +23,22 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
+import { paymentService, type PaymentResponse } from "@/lib/services/payment-service"
 import { Loader2 } from "lucide-react"
+
+
+interface PaymentSocio {
+  id: string
+  nombreCompleto: string
+  numeroSocio: string
+  status: string
+}
 
 interface PaymentDialogProps {
   isOpen: boolean
   onOpenChange: (isOpen: boolean) => void
-  socio: AdminUserView | null
-  onPaymentSuccess?: (payment: any) => void
+  socio: PaymentSocio | null
+  onPaymentSuccess?: (payment: PaymentResponse) => void
 }
 
 interface PaymentFormData {
@@ -86,34 +95,18 @@ export function PaymentDialog({ isOpen, onOpenChange, socio, onPaymentSuccess }:
     setIsLoading(true)
 
     try {
-      // Llamar directamente al servicio Go según la documentación
-      const response = await fetch('http://localhost:8080/api/v1/payments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: socio.id,
-          amount: amount.toString(),
-          periodCovered: formData.periodCovered,
-          paymentMethod: formData.paymentMethod, // Usar el método seleccionado
-          concept: formData.notes || `Pago para período ${formData.periodCovered}`,
-        }),
+      const result = await paymentService.createManualPayment({
+        userId: socio.id,
+        amount,
+        periodCovered: formData.periodCovered,
+        paymentMethod: formData.paymentMethod,
+        notes: formData.notes,
       })
 
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.error || 'Error al registrar el pago')
-      }
-
-      // Manejar respuesta según el tipo de pago
       if (result.checkoutUrl) {
-        // Es un pago con MercadoPago - redirigir al checkout
         toast.success('Redirigiendo a MercadoPago...')
         window.open(result.checkoutUrl, '_blank')
       } else {
-        // Es un pago manual (efectivo/transferencia) - PENDING
         toast.success('Pago registrado exitosamente. Estado: PENDING')
       }
 

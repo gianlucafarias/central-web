@@ -1,4 +1,4 @@
-import { Event, EventType, EventStatus } from '@/lib/events'
+import { Event } from '@/lib/events'
 
 export const mockEventos: Event[] = [
   {
@@ -31,6 +31,7 @@ export const mockEventos: Event[] = [
     awayTeam: 'C.S.L.',
     isPublic: true,
     disciplineId: 'basquet',
+    registrationRequired: true,
     createdAt: new Date(2025, 3, 1),
     updatedAt: new Date(2025, 3, 1),
   },
@@ -46,6 +47,7 @@ export const mockEventos: Event[] = [
     location: 'Estadio Ciudad Deportiva, San Cristóbal',
     homeTeam: 'Atenas',
     awayTeam: 'C.C.A.O.',
+    registrationRequired: true,
     isPublic: true,
     disciplineId: 'futbol',
     createdAt: new Date(2025, 3, 1),
@@ -82,6 +84,7 @@ export const mockEventos: Event[] = [
     homeTeam: 'C.A. Olimpico',
     awayTeam: 'San Martín',
     isPublic: true,
+    registrationRequired: true,
     disciplineId: 'futbol',
     createdAt: new Date(2025, 2, 1),
     updatedAt: new Date(2025, 3, 15),
@@ -101,6 +104,7 @@ export const mockEventos: Event[] = [
     homeTeam: 'Unión',
     awayTeam: 'C.A. Olimpico',
     isPublic: true,
+    registrationRequired: true,
     disciplineId: 'futbol',
     createdAt: new Date(2025, 2, 1),
     updatedAt: new Date(2025, 3, 8),
@@ -117,6 +121,7 @@ export const mockEventos: Event[] = [
     location: 'Complejo Acuático, Rafaela',
     result: '2° Puesto General',
     isPublic: true,
+    registrationRequired: true,
     disciplineId: 'natacion',
     createdAt: new Date(2025, 2, 1),
     updatedAt: new Date(2025, 3, 5),
@@ -132,6 +137,7 @@ export const mockEventos: Event[] = [
     endTime: '20:00',
     location: 'Cancha de Fútbol, Ceres',
     isPublic: false,
+    registrationRequired: false,
     disciplineId: 'futbol',
     notes: 'Cancelado por mal tiempo',
     createdAt: new Date(2025, 3, 1),

@@ -1,12 +1,11 @@
-"use client" // Necesario para el estado y los handlers
+"use client"
 
-import * as React from "react" // Necesario para useState
-import Link from "next/link" // Importar Link
+import * as React from "react"
+import Link from "next/link" 
 import { SiteHeader } from "@/components/admin/site-header"
-import { Button } from "@/components/ui/button"
 import { PlusCircleIcon } from "lucide-react"
-import { mockNewsArticles } from "./data-noticias" // Importar datos mock
-import { NoticiasDataTable } from "@/components/admin/noticias-data-table" // Importar la tabla
+import { mockNewsArticles } from "./data-noticias" 
+import { NoticiasDataTable } from "@/components/admin/noticias-data-table"
 import { buttonVariants } from "@/components/ui/button"
 
 export default function NoticiasPage() {

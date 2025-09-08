@@ -1,15 +1,16 @@
 import { AdminUserView } from "@/app/admin/dashboard/data-socios"
+import type { PaymentResponse } from "@/lib/services/payment-service"
 
 export function updateUserAfterPayment(
 	users: AdminUserView[], 
-	payment: any
+	payment: PaymentResponse
 ): AdminUserView[] {
 	return users.map(user => 
 		user.id === payment.userId 
 			? {
 					...user,
 					lastPaymentAmount: Number(payment.amount),
-					lastPaymentDate: new Date(payment.paymentDate),
+					lastPaymentDate: new Date(payment.createdAt),
 					status: 'ACTIVE' as const, // El pago exitoso activa al socio
 				}
 			: user
@@ -58,3 +59,4 @@ export function getPaymentStatusDisplayName(status: string): string {
 	
 	return statusNames[status] || status
 }
+

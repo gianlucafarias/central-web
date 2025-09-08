@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@/lib/generated/prisma'
-import { createPaymentSchema } from '@/lib/validations/payment'
 import { paymentService } from '@/lib/services/payment-service'
-import { z } from 'zod'
 
 const prisma = new PrismaClient()
 
@@ -46,10 +44,6 @@ export async function POST(request: NextRequest) {
 			paymentMethod: validatedData.paymentMethod,
 			notes: validatedData.notes,
 		})
-
-		// ⚠️ NOTA: No hay sincronización automática con Prisma
-		// El servicio Go maneja la persistencia de pagos
-		// Para sincronizar, implementar webhook o endpoint de sincronización
 
 		return NextResponse.json({
 			success: true,

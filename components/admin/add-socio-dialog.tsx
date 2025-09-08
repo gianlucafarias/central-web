@@ -20,7 +20,15 @@ import { Loader2, UserPlus } from "lucide-react"
 interface AddSocioDialogProps {
   isOpen: boolean
   onOpenChange: (isOpen: boolean) => void
-  onSocioCreated?: (socio: any) => void
+  onSocioCreated?: (socio: Socio) => void
+}
+
+interface Socio {
+  id: string
+  firstName: string
+  lastName: string
+  dni: string
+  email: string
 }
 
 interface FormData {

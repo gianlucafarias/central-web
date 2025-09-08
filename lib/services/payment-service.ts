@@ -71,7 +71,17 @@ class PaymentServiceClient {
 		const isMercadoPago = mappedMethod === 'tarjeta_debito' || mappedMethod === 'tarjeta_credito'
 		
 		// Usar un solo endpoint para todos los pagos según documentación
-		const payload: any = {
+		type Payload = {
+			userId: string
+			amount: string
+			periodCovered: string
+			paymentMethod: string
+			concept: string
+			['back_url.success']?: string
+			['back_url.failure']?: string
+			['back_url.pending']?: string
+		}
+		const payload: Payload = {
 			userId: request.userId,
 			amount: request.amount.toString(),
 			periodCovered: request.periodCovered,

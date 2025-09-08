@@ -37,9 +37,16 @@ export default function Sponsors() {
   return (
     <div id="#sponsors">
     <section className="bg-[#0F0F0F] w-full">
+    <div className="bg-[#0F0F0F]">
+        <SectionDivider 
+          color="#0F0F0F" 
+          className="h-20 -mt-20"
+          flipY={true} 
+        />
+      </div>   
       <div className="container mx-auto px-6 pt-10 pb-10">
         <h2 className="text-xl font-bold text-white text-center pb-10 font-mono">
-          NUESTROS SPONSORS
+          NOS ACOMPAÑAN
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 items-center justify-items-center">
           {sponsors.map((sponsor) => (
@@ -56,10 +63,7 @@ export default function Sponsors() {
         </div>
       </div>      
     </section>
-     <SectionDivider
-     color="#0F0F0F" 
-     className="h-20"
-   />
+     
    </div>
   );
 }

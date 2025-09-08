@@ -10,7 +10,7 @@ export interface AdminUserView {
   phone: string
   email: string
   image?: string | null
-  createdAt: string
+  createdAt: Date
   status: string
   role: string
   
@@ -18,7 +18,7 @@ export interface AdminUserView {
   familyHeadId?: string | null
 
   lastPaymentAmount?: number | null
-  lastPaymentDate?: string | null
+  lastPaymentDate?: Date | null
   lastPaymentStatus?: string | null
 }
 
@@ -42,6 +42,7 @@ export const mockAdminUsers: AdminUserView[] = [
     familyHeadId: null,
     lastPaymentAmount: 3500, 
     lastPaymentDate: new Date('2024-10-10T10:00:00Z'),
+    role: 'USER',
   },
   {
     id: 'user_1_fam1',
@@ -59,6 +60,7 @@ export const mockAdminUsers: AdminUserView[] = [
     familyHeadId: user1_id,
     lastPaymentAmount: null,
     lastPaymentDate: null,
+    role: 'USER',
   },
   {
     id: 'user_1_fam2',
@@ -76,6 +78,7 @@ export const mockAdminUsers: AdminUserView[] = [
     familyHeadId: user1_id,
     lastPaymentAmount: null,
     lastPaymentDate: null,
+    role: 'USER',
   },
   {
     id: 'user_2_individual',
@@ -93,6 +96,7 @@ export const mockAdminUsers: AdminUserView[] = [
     familyHeadId: null,
     lastPaymentAmount: 2500,
     lastPaymentDate: new Date('2024-08-10T10:00:00Z'),
+    role: 'USER',
   },
   {
     id: 'user_3_individual',
@@ -110,6 +114,7 @@ export const mockAdminUsers: AdminUserView[] = [
     familyHeadId: null,
     lastPaymentAmount: 3000,
     lastPaymentDate: new Date('2024-11-05T10:00:00Z'),
+    role: 'USER',
   },
   {
     id: 'user_4_individual',
@@ -127,6 +132,7 @@ export const mockAdminUsers: AdminUserView[] = [
     familyHeadId: null,
     lastPaymentAmount: null,
     lastPaymentDate: null,
+    role: 'USER',
   },
   {
     id: user5_id,
@@ -144,6 +150,7 @@ export const mockAdminUsers: AdminUserView[] = [
     familyHeadId: null,
     lastPaymentAmount: 2000, 
     lastPaymentDate: new Date('2024-07-15T10:00:00Z'),
+    role: 'USER',
   },
   {
     id: 'user_5_fam1',
@@ -161,5 +168,6 @@ export const mockAdminUsers: AdminUserView[] = [
     familyHeadId: user5_id,
     lastPaymentAmount: null,
     lastPaymentDate: null,
+    role: 'USER',
   },
 ]; 

@@ -1,18 +1,11 @@
 import { Facebook, Instagram, Twitter, Youtube, Mail, MapPin, Phone } from "lucide-react";
-import SectionDivider from "./SectionDivider";
 import Image from "next/image";
 import Link from "next/link";
 const Footer = () => {
   return (
     
     <section id="contacto">
-             <div className="bg-[#0F0F0F]">
-        <SectionDivider 
-          color="#0F0F0F" 
-          className="h-20 -mt-20"
-          flipY={true} 
-        />
-      </div>   
+           
     <footer className="bg-[#0F0F0F] text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -74,10 +67,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link href="/disciplinas/voley" className="text-white/80 hover:text-white transition-colors">Voley</Link>
-              </li>
-              <li>
-                <Link href="/disciplinas/natacion" className="text-white/80 hover:text-white transition-colors">Natación</Link>
-              </li>
+              </li>       
               <li>
                 <Link href="/disciplinas/patin" className="text-white/80 hover:text-white transition-colors">Patin</Link>
               </li>

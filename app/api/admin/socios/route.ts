@@ -160,7 +160,7 @@ export async function GET(request: NextRequest) {
 			email: socio.email || '',
 			status: socio.status,
 			role: socio.role,
-			createdAt: socio.createdAt.toISOString(),
+			createdAt: socio.createdAt,
 			familyHeadId: socio.familyHeadId,
 			familyMembersCount: socio._count.familyMembers,
 			lastPaymentAmount: null, // Temporalmente null hasta implementar consulta de payments

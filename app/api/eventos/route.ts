@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@/lib/generated/prisma'
-import { EventType, EventStatus } from '@/lib/events'
-import { verifyAuth } from '@/lib/auth'
+import { PrismaClient, Prisma } from '@/lib/generated/prisma'
+
 
 const prisma = new PrismaClient()
 
@@ -13,7 +12,7 @@ export async function GET(request: NextRequest) {
     const disciplineId = searchParams.get('disciplineId')
     const limit = searchParams.get('limit')
 
-    let whereClause: any = {
+    const whereClause: Prisma.EventWhereInput = {
       isPublic: true // Solo eventos públicos
     }
 
@@ -25,20 +24,20 @@ export async function GET(request: NextRequest) {
     // Filtrar por tipo de eventos
     if (type === 'upcoming') {
       whereClause.eventDate = {
-        gte: new Date()
+        gte: new Date() as Date 
       }
       whereClause.status = {
-        not: 'CANCELLED'
+        not: 'CANCELLED' as const
       }
     } else if (type === 'past') {
-      whereClause.OR = [
+    whereClause.OR = [
         {
           eventDate: {
-            lt: new Date()
+            lt: new Date() as Date
           }
         },
         {
-          status: 'COMPLETED'
+          status: 'COMPLETED' as const
         }
       ]
     }
